@@ -17,15 +17,24 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 
-body{
-font-family:'Inter',sans-serif;
-background:#0a0a0a;
-color:#fff;
-overflow-x:hidden;
-line-height:1.6;
-letter-spacing:.3px;
+body::after{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 10%, rgba(214,192,141,.12), transparent 40%),
+radial-gradient(circle at 80% 90%, rgba(180,150,90,.10), transparent 40%);
+z-index:-1;
 }
 
+/* capa clara encima */
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:#f6f1e8;
+z-index:-2;
+}
 /* CENTRADO REAL */
 section{
 padding:110px 24px;
@@ -69,36 +78,48 @@ align-items:center;
 justify-content:center;
 text-align:center;
 position:relative;
+color:#fff;
 }
 
+/* degradado editorial */
 .hero::after{
 content:"";
 position:absolute;
 inset:0;
-background:linear-gradient(to bottom,rgba(0,0,0,.2),#0b0b0c);
+background:linear-gradient(
+to bottom,
+rgba(20,20,20,.15) 0%,
+rgba(20,20,20,.25) 40%,
+rgba(20,20,20,.55) 75%,
+rgba(20,20,20,.75) 100%
+);
 }
-
-.hero-content{
-position:relative;
-z-index:2;
-backdrop-filter:var(--blur);
-padding:40px;
-background:var(--glass);
-border-radius:20px;
-}
-
-.hero h1{
-font-family:'Playfair Display',serif;
-font-size:48px;
-letter-spacing:6px;
-color:var(--gold);
-}
-
-.hero p{letter-spacing:4px;margin-top:10px}
 
 /* ===== SECTIONS ===== */
+   section{
+padding:110px 24px;
+max-width:720px;
+margin:0 auto;
+position:relative;
+}
+
+/* línea divisoria editorial */
+section::after{
+content:"";
+display:block;
+width:60px;
+height:1px;
+background:#D6C08D;
+margin:70px auto 0 auto;
+opacity:.6;
+}
+
+section:last-of-type::after{
+display:none;
+}
 
 section{
+   color:#3a352c;
 padding:90px 20px;
 text-align:center;
 max-width:900px;
@@ -253,6 +274,39 @@ margin-bottom:4px;
 font-size:13px;
 color:#bbb;
 }
+
+   .hero-text{
+position:relative;
+z-index:2;
+max-width:90%;
+}
+
+/* nombres */
+.hero-text h1{
+font-family:'Playfair Display',serif;
+font-size:clamp(42px,6vw,68px);
+font-weight:400;
+letter-spacing:8px;
+color:#F1E7D0;
+text-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+
+/* la & */
+.hero-text h1 span{
+font-style:italic;
+letter-spacing:2px;
+margin:0 8px;
+}
+
+/* fecha */
+.hero-text p{
+margin-top:18px;
+font-size:13px;
+letter-spacing:6px;
+color:#D6C08D;
+}
+
+   
    
 </style>
 </head>
@@ -269,8 +323,8 @@ color:#bbb;
 <audio id="music" src="cancion.mp3" loop></audio>
 
 <div class="hero">
-<div class="hero-content">
-<h1>Valeria & Lucas</h1>
+<div class="hero-text">
+<h1>Valeria <span>&</span> Lucas</h1>
 <p>20 · JULIO · 2026</p>
 </div>
 </div>
