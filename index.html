@@ -288,89 +288,178 @@ color:#aaa;
 </div>
 
 <script>
-/* ===== MUSICA ===== */
-open.onclick=()=>{
-open.style.display="none";
-music.play();
-}
+document.addEventListener("DOMContentLoaded", function(){
 
-/* ===== PARTICULAS ELEGANTES ===== */
-const c=document.getElementById("particles");
-const ctx=c.getContext("2d");
-c.width=innerWidth;c.height=innerHeight;
+/* ===============================
+   REFERENCIAS SEGURAS (NO GLOBALES)
+=================================*/
+const openScreen = document.getElementById("open");
+const music = document.getElementById("music");
+const count = document.getElementById("count");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = lightbox.querySelector("img");
+const closeBtn = document.getElementById("close");
+const guestsSelect = document.getElementById("guests");
+const nameInput = document.getElementById("name");
 
-let p=[];
-for(let i=0;i<60;i++){
-p.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2,v:Math.random()*.3});
-}
+/* ===============================
+   ABRIR INVITACIÓN + MÚSICA
+=================================*/
+openScreen.addEventListener("click", function(){
+    openScreen.style.display = "none";
 
-function draw(){
-ctx.clearRect(0,0,c.width,c.height);
-ctx.fillStyle="rgba(214,192,141,.6)";
-p.forEach(e=>{
-ctx.beginPath();
-ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
-ctx.fill();
-e.y+=e.v;
-if(e.y>c.height)e.y=0;
+    // iPhone bloquea autoplay — esto lo permite
+    music.currentTime = 0;
+    music.play().catch(()=>{});
 });
-requestAnimationFrame(draw);
+
+/* ===============================
+   PARTÍCULAS
+=================================*/
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
-draw();
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
-/* ===== COUNTDOWN ===== */
-const target=new Date("2026-07-20T00:00:00");
-setInterval(()=>{
-let d=target-new Date();
-let days=Math.floor(d/86400000);
-let h=Math.floor(d%86400000/3600000);
-let m=Math.floor(d%3600000/60000);
-let s=Math.floor(d%60000/1000);
-count.innerHTML=`${days}D ${h}H ${m}M ${s}S`;
-},1000);
+let particles = [];
+for(let i=0;i<70;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        v:0.2 + Math.random()*0.3
+    });
+}
 
-/* ===== LIGHTBOX ===== */
+function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="rgba(214,192,141,0.7)";
+
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+
+        p.y += p.v;
+        if(p.y > canvas.height){
+            p.y = 0;
+            p.x = Math.random()*canvas.width;
+        }
+    });
+
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+/* ===============================
+   CUENTA REGRESIVA
+=================================*/
+const targetDate = new Date("2026-07-20T00:00:00").getTime();
+
+function updateCountdown(){
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if(diff <= 0){
+        count.innerHTML = "¡HOY ES EL GRAN DÍA!";
+        return;
+    }
+
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    const m = Math.floor((diff%(1000*60*60))/(1000*60));
+    const s = Math.floor((diff%(1000*60))/1000);
+
+    count.innerHTML = `${d}D ${h}H ${m}M ${s}S`;
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+/* ===============================
+   GALERÍA LIGHTBOX
+=================================*/
 document.querySelectorAll(".collage img").forEach(img=>{
-img.onclick=()=>{
-lightbox.style.display="flex";
-lightbox.querySelector("img").src=img.src;
-};
+    img.addEventListener("click", function(){
+        lightbox.style.display = "flex";
+        lightboxImg.src = this.src;
+    });
 });
-close.onclick=()=>lightbox.style.display="none";
 
-/* ===== ACOMPAÑANTES EDITABLE ===== */
-let maxGuests=4;
+closeBtn.addEventListener("click", ()=>{
+    lightbox.style.display = "none";
+});
+
+lightbox.addEventListener("click", e=>{
+    if(e.target === lightbox){
+        lightbox.style.display = "none";
+    }
+});
+
+/* ===============================
+   ACOMPAÑANTES EDITABLE
+=================================*/
+let maxGuests = 4; // ← cambia aquí si quieres más
+
 for(let i=0;i<maxGuests;i++){
-guests.innerHTML+=`<option value="${i}">Me acompañan ${i}</option>`;
+    const opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = i === 0 ? "Solo yo" : `Me acompañan ${i}`;
+    guestsSelect.appendChild(opt);
 }
 
-/* ===== WHATS ===== */
-function sendConfirm(){
-window.open(`https://wa.me/521XXXXXXXXXX?text=Confirmo asistencia: ${name.value} con ${guests.value} acompañantes`);
-}
-function decline(){
-window.open(`https://wa.me/521XXXXXXXXXX?text=${name.value} no podrá asistir`);
+/* ===============================
+   WHATSAPP
+=================================*/
+window.sendConfirm = function(){
+    const name = nameInput.value || "Invitado";
+    const guests = guestsSelect.value;
+
+    const msg = `Confirmo asistencia:\n${name}\nAcompañantes: ${guests}`;
+    window.open(`https://wa.me/521TU_NUMERO?text=${encodeURIComponent(msg)}`);
 }
 
-/* ===== SCROLL ===== */
-function scrollCountdown(){
-document.getElementById("countdown").scrollIntoView({behavior:"smooth",block:"center"});
+window.decline = function(){
+    const name = nameInput.value || "Invitado";
+    const msg = `${name} no podrá asistir.`;
+
+    window.open(`https://wa.me/521TU_NUMERO?text=${encodeURIComponent(msg)}`);
 }
 
-/* ===== CALENDAR ===== */
-function addCalendar(){
-const file=`BEGIN:VCALENDAR
+/* ===============================
+   SCROLL A COUNTDOWN CENTRADO
+=================================*/
+window.scrollCountdown = function(){
+    document.getElementById("countdown")
+        .scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+/* ===============================
+   ARCHIVO CALENDARIO REAL (.ICS)
+=================================*/
+window.addCalendar = function(){
+    const data =
+`BEGIN:VCALENDAR
+VERSION:2.0
 BEGIN:VEVENT
-DTSTART:20260720T170000
 SUMMARY:Boda Valeria & Lucas
+DTSTART:20260720T170000
+DTEND:20260720T230000
 END:VEVENT
 END:VCALENDAR`;
-const blob=new Blob([file]);
-const a=document.createElement("a");
-a.href=URL.createObjectURL(blob);
-a.download="boda.ics";
-a.click();
+
+    const blob = new Blob([data], {type:"text/calendar"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "boda.ics";
+    link.click();
 }
+
+});
 </script>
 
 </body>
