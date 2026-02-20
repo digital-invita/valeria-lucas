@@ -19,9 +19,19 @@
 
 body{
 font-family:'Inter',sans-serif;
-background:#0b0b0c;
+background:#0a0a0a;
 color:#fff;
 overflow-x:hidden;
+line-height:1.6;
+letter-spacing:.3px;
+}
+
+/* CENTRADO REAL */
+section{
+padding:110px 24px;
+max-width:720px;
+margin:0 auto;
+text-align:center;
 }
 
 /* ===== PARTICULAS ===== */
@@ -188,6 +198,62 @@ padding:70px 20px;
 font-size:13px;
 color:#aaa;
 }
+/* ===== TIMELINE ===== */
+
+.timeline{
+position:relative;
+margin-top:40px;
+padding-left:20px;
+text-align:left;
+}
+
+.timeline::before{
+content:"";
+position:absolute;
+left:8px;
+top:0;
+bottom:0;
+width:1px;
+background:rgba(214,192,141,.4);
+}
+
+.event{
+margin-bottom:38px;
+position:relative;
+padding-left:26px;
+}
+
+.event::before{
+content:"";
+position:absolute;
+left:-2px;
+top:6px;
+width:10px;
+height:10px;
+border-radius:50%;
+background:#D6C08D;
+box-shadow:0 0 10px rgba(214,192,141,.6);
+}
+
+.time{
+font-size:12px;
+letter-spacing:3px;
+color:#D6C08D;
+margin-bottom:6px;
+}
+
+.title{
+font-family:'Playfair Display',serif;
+font-size:16px;
+letter-spacing:2px;
+margin-bottom:4px;
+}
+
+.desc{
+font-size:13px;
+color:#bbb;
+}
+   
 </style>
 </head>
 
@@ -230,7 +296,40 @@ color:#aaa;
 
 <section>
 <h2>Itinerario</h2>
-<p>Cóctel · Cena · Vals · Brindis · Fiesta</p>
+
+<div class="timeline">
+
+<div class="event">
+<div class="time">5:00 PM</div>
+<div class="title">Ceremonia</div>
+<div class="desc">Uniremos nuestras vidas.</div>
+</div>
+
+<div class="event">
+<div class="time">6:00 PM</div>
+<div class="title">Cóctel de Bienvenida</div>
+<div class="desc">Brindemos juntos este momento.</div>
+</div>
+
+<div class="event">
+<div class="time">7:30 PM</div>
+<div class="title">Recepción</div>
+<div class="desc">Cena servida.</div>
+</div>
+
+<div class="event">
+<div class="time">9:00 PM</div>
+<div class="title">Primer Vals</div>
+<div class="desc">Nuestro primer baile como esposos.</div>
+</div>
+
+<div class="event">
+<div class="time">10:00 PM</div>
+<div class="title">Fiesta</div>
+<div class="desc">Celebremos hasta el final.</div>
+</div>
+
+</div>
 </section>
 
 <section id="countdown">
@@ -313,48 +412,52 @@ openScreen.addEventListener("click", function(){
     music.play().catch(()=>{});
 });
 
-/* ===============================
-   PARTÍCULAS
-=================================*/
+/* ===== PARTICULAS LUJO ===== */
+
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
-function resizeCanvas(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+function resize(){
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 }
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+resize();
+window.addEventListener("resize", resize);
 
+/* partículas en diferentes profundidades */
 let particles = [];
-for(let i=0;i<70;i++){
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*2,
-        v:0.2 + Math.random()*0.3
-    });
+
+for(let i=0;i<55;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*1.8 + .2,
+speed:Math.random()*0.15 + 0.05,
+alpha:Math.random()*0.5 + 0.2,
+drift:(Math.random()-.5)*0.2
+});
 }
 
-function animateParticles(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="rgba(214,192,141,0.7)";
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
+particles.forEach(p=>{
+p.y += p.speed;
+p.x += p.drift;
 
-        p.y += p.v;
-        if(p.y > canvas.height){
-            p.y = 0;
-            p.x = Math.random()*canvas.width;
-        }
-    });
+if(p.y > canvas.height) p.y = -10;
+if(p.x > canvas.width || p.x < 0) p.x = Math.random()*canvas.width;
 
-    requestAnimationFrame(animateParticles);
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle = `rgba(214,192,141,${p.alpha})`;
+ctx.fill();
+});
+
+requestAnimationFrame(animate);
 }
-animateParticles();
+
+animate();
 
 /* ===============================
    CUENTA REGRESIVA
