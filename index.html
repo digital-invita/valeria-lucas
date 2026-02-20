@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valeria & Lucas</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--gold:#d4af37;
+--dark:#0f0f0f;
+--soft:#f7f7f7;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Montserrat',sans-serif;
+background:var(--dark);
+color:#fff;
+overflow-x:hidden;
+}
+
+/* Pantalla inicial */
+
+#startScreen{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+cursor:pointer;
+}
+
+#startScreen img{
+width:120px;
+margin-bottom:20px;
+}
+
+#startScreen p{
+letter-spacing:3px;
+font-size:12px;
+color:#ccc;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+background:url('FPrincipal.jpg') center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:42px;
+letter-spacing:4px;
+}
+
+.hero p{
+margin-top:15px;
+letter-spacing:3px;
+}
+
+/* Secciones */
+
+section{
+padding:80px 20px;
+text-align:center;
+}
+
+h2{
+font-family:'Playfair Display',serif;
+margin-bottom:25px;
+letter-spacing:3px;
+color:var(--gold);
+}
+
+/* Historia */
+
+.historia img{
+width:90%;
+max-width:500px;
+border-radius:6px;
+margin-top:20px;
+}
+
+/* Cuenta regresiva */
+
+.countdown{
+font-size:28px;
+letter-spacing:3px;
+}
+
+/* Galería */
+
+.gallery{
+max-width:900px;
+margin:auto;
+}
+
+.main-img{
+width:100%;
+height:450px;
+object-fit:contain;
+background:#000;
+}
+
+.thumbs{
+display:flex;
+gap:10px;
+justify-content:center;
+margin-top:15px;
+flex-wrap:wrap;
+}
+
+.thumbs img{
+width:60px;
+height:60px;
+object-fit:cover;
+cursor:pointer;
+opacity:.6;
+transition:.3s;
+}
+
+.thumbs img:hover{opacity:1}
+
+/* Botones */
+
+.btn{
+display:inline-block;
+margin-top:20px;
+padding:12px 28px;
+border:1px solid var(--gold);
+color:var(--gold);
+text-decoration:none;
+letter-spacing:2px;
+transition:.3s;
+}
+
+.btn:hover{
+background:var(--gold);
+color:#000;
+}
+
+/* Formulario */
+
+input,select{
+width:90%;
+max-width:300px;
+padding:12px;
+margin:10px 0;
+border:none;
+}
+
+/* Footer */
+
+footer{
+padding:50px 20px;
+font-size:13px;
+color:#aaa;
+}
+
+footer a{color:var(--gold);text-decoration:none;}
+</style>
+</head>
+
+<body>
+
+<!-- Pantalla inicial -->
+<div id="startScreen">
+<img src="sello_cera.png">
+<p>TOCA PARA ABRIR INVITACIÓN</p>
+</div>
+
+<audio id="music" src="cancion.mp3" loop></audio>
+
+<!-- HERO -->
+<div class="hero">
+<div>
+<h1>Valeria & Lucas</h1>
+<p>20 · Julio · 2026</p>
+</div>
+</div>
+
+<section class="historia">
+<h2>Nuestra Historia</h2>
+<img src="FHistoria.jpg">
+</section>
+
+<section>
+<h2>Ceremonia</h2>
+<p>5:00 PM</p>
+<p>Parroquia San Miguel</p>
+<a class="btn" href="#" target="_blank">Cómo llegar</a>
+</section>
+
+<section>
+<h2>Recepción</h2>
+<p>7:30 PM</p>
+<p>Hacienda Los Laureles</p>
+<a class="btn" href="#" target="_blank">Cómo llegar</a>
+</section>
+
+<section>
+<h2>Itinerario</h2>
+<p>Cóctel · Cena · Vals · Brindis · Fiesta</p>
+</section>
+
+<section id="countdown">
+<h2>Cuenta Regresiva</h2>
+<div class="countdown" id="timer"></div>
+</section>
+
+<section>
+<h2>Galería</h2>
+
+<div class="gallery">
+<img id="mainPhoto" class="main-img" src="G1j.pg">
+
+<div class="thumbs">
+<img src="G1j.pg" onclick="changePhoto(this)">
+<img src="G2j.pg" onclick="changePhoto(this)">
+<img src="G3j.pg" onclick="changePhoto(this)">
+<img src="G4j.pg" onclick="changePhoto(this)">
+<img src="G5j.pg" onclick="changePhoto(this)">
+<img src="G6j.pg" onclick="changePhoto(this)">
+</div>
+</div>
+</section>
+
+<section>
+<h2>Código de Vestimenta</h2>
+<img src="vestimenta.png" style="width:80%;max-width:400px;">
+</section>
+
+<section>
+<h2>Confirmar Asistencia</h2>
+<input type="text" id="nombre" placeholder="Tu nombre">
+
+<select id="acompanantes">
+<option value="0">Solo yo</option>
+<option value="1">+1 acompañante</option>
+<option value="2">+2 acompañantes</option>
+<option value="3">+3 acompañantes</option>
+</select>
+
+<br>
+<a class="btn" onclick="confirmar()">Confirmar</a>
+<a class="btn" onclick="noAsistire()">No podré asistir</a>
+</section>
+
+<section>
+<h2>Mesa de Regalos</h2>
+<p>Liverpool</p>
+<p>Transferencia bancaria disponible</p>
+</section>
+
+<section>
+<h2>Agenda este momento</h2>
+<a class="btn" href="#countdown">Ver cuenta regresiva</a>
+</section>
+
+<footer>
+<p>Invitación creada con amor digital</p>
+<p><a href="#">DIGITAL INVITA</a></p>
+<br>
+<p>¿Tienes tu evento y no tienes invitaciones?</p>
+<a class="btn" href="https://wa.me/5210000000000?text=Hola%20quiero%20mi%20invitación">Da click aquí</a>
+</footer>
+
+<script>
+document.getElementById("startScreen").onclick=function(){
+this.style.display="none";
+document.getElementById("music").play();
+}
+
+/* Cuenta regresiva */
+const target=new Date("July 20, 2026 00:00:00").getTime();
+
+setInterval(()=>{
+const now=new Date().getTime();
+const diff=target-now;
+
+const d=Math.floor(diff/(1000*60*60*24));
+const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+const m=Math.floor((diff%(1000*60*60))/(1000*60));
+const s=Math.floor((diff%(1000*60))/1000);
+
+document.getElementById("timer").innerHTML=`${d}D ${h}H ${m}M ${s}S`;
+},1000);
+
+/* Galería */
+function changePhoto(el){
+document.getElementById("mainPhoto").src=el.src;
+}
+
+/* Confirmación */
+function confirmar(){
+let n=document.getElementById("nombre").value;
+let a=document.getElementById("acompanantes").value;
+
+window.open(`https://wa.me/5210000000000?text=Confirmo asistencia: ${n} con ${a} acompañantes`);
+}
+
+function noAsistire(){
+let n=document.getElementById("nombre").value;
+window.open(`https://wa.me/5210000000000?text=${n} no podrá asistir`);
+}
+</script>
+
+</body>
+</html>
