@@ -139,23 +139,12 @@ position:relative;
 section::after{
 content:"";
 display:block;
-width:60px;
-height:1px;
-background:#cdb892;
-opacity:.5;
-margin:70px auto 0;
+width:80px;
+height:14px;
+margin:80px auto 0;
+background:linear-gradient(to right, transparent, #cdb892, transparent);
+opacity:.6;
 }
-section:last-of-type::after{
-display:none;
-}
-
-h2{
-font-family:'Playfair Display',serif;
-color:var(--gold);
-margin-bottom:25px;
-letter-spacing:4px;
-}
-
 /* ===== COLLAGE GALLERY ===== */
 
 .collage{
@@ -204,20 +193,22 @@ cursor:pointer;
 
 /* ===== BUTTON ===== */
 
-.btn{
-display:inline-block;
-margin-top:20px;
-padding:14px 30px;
-border:1px solid var(--gold);
-color:var(--gold);
-text-decoration:none;
-letter-spacing:3px;
-transition:.4s;
+button, .btn{
+padding:14px 28px;
+border:1px solid #cdb892;
+background:transparent;
+color:#7a6a4f;
+letter-spacing:2px;
+font-size:12px;
+text-transform:uppercase;
+cursor:pointer;
+transition:.35s ease;
 }
 
-.btn:hover{
-background:var(--gold);
-color:#000;
+button:hover, .btn:hover{
+background:#cdb892;
+color:white;
+transform:translateY(-2px);
 }
 
 /* ===== COUNTDOWN ===== */
@@ -254,20 +245,20 @@ text-align:left;
 .timeline::before{
 content:"";
 position:absolute;
-left:8px;
+left:10px;
 top:0;
 bottom:0;
 width:1px;
-background:rgba(214,192,141,.4);
+background:#d8c7a3;
 }
 
-.event{
-margin-bottom:38px;
+.timeline-item{
 position:relative;
-padding-left:26px;
+margin-bottom:40px;
+padding-left:30px;
 }
 
-.event::before{
+.timeline-item::before{
 content:"";
 position:absolute;
 left:-2px;
@@ -275,33 +266,14 @@ top:6px;
 width:10px;
 height:10px;
 border-radius:50%;
-background:#D6C08D;
-box-shadow:0 0 10px rgba(214,192,141,.6);
+background:#cdb892;
 }
 
-.time{
-font-size:12px;
-letter-spacing:3px;
-color:#D6C08D;
-margin-bottom:6px;
-}
-
-.title{
-font-family:'Playfair Display',serif;
-font-size:16px;
-letter-spacing:2px;
-margin-bottom:4px;
-}
-
-.desc{
+.timeline-item h4{
 font-size:13px;
-color:#bbb;
-}
-
-   .hero-text{
-position:relative;
-z-index:2;
-max-width:90%;
+letter-spacing:3px;
+color:#a18d6b;
+margin-bottom:6px;
 }
 
 /* nombres */
@@ -315,21 +287,68 @@ text-shadow:0 6px 18px rgba(0,0,0,.25);
 }
 
 /* la & */
-.hero-text h1 span{
-font-style:italic;
-letter-spacing:2px;
-margin:0 8px;
+.hero h1{
+font-family:'Playfair Display',serif;
+font-weight:500;
+font-size:42px;
+letter-spacing:6px;
+color:#2f2a24;
+text-transform:uppercase;
 }
 
 /* fecha */
-.hero-text p{
+.hero .fecha{
 margin-top:18px;
-font-size:13px;
-letter-spacing:6px;
-color:#D6C08D;
+font-size:15px;
+letter-spacing:4px;
+color:#8a7a5c;
 }
 
+.fade{
+opacity:0;
+transform:translateY(30px);
+transition:1.2s ease;
+}
+
+.fade.visible{
+opacity:1;
+transform:translateY(0);
+}   
    
+#countdown{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:60px 20px;
+background:rgba(255,255,255,0.05); /* capa sutil sobre la textura */
+border-radius:16px;
+box-shadow:0 8px 24px rgba(0,0,0,0.08);
+max-width:400px;
+margin:60px auto;
+}
+
+#count{
+font-family:'Playfair Display', serif;
+font-size:48px;
+letter-spacing:6px;
+color:#8a7a5c;
+text-shadow:0 4px 12px rgba(0,0,0,0.15);
+margin-top:20px;
+}
+
+#count span{
+display:inline-block;
+min-width:60px;
+background:rgba(214,192,141,0.15);
+padding:12px 16px;
+margin:0 6px;
+border-radius:12px;
+font-size:22px;
+letter-spacing:2px;
+color:#2f2a24;
+font-weight:500;
+}
    
 </style>
 </head>
@@ -352,69 +371,75 @@ color:#D6C08D;
 </div>
 </div>
 
-<section>
+<section class="fade">
 <h2>Nuestra Historia</h2>
 <img src="FHistoria.jpg" style="width:100%;border-radius:10px;">
 </section>
 
-<section>
+<section class="fade">
 <h2>Ceremonia</h2>
 <p>5:00 PM</p>
 <p>Parroquia San Miguel</p>
 <a class="btn" href="#">CÓMO LLEGAR</a>
 </section>
 
-<section>
+<section class="fade">
 <h2>Recepción</h2>
 <p>7:30 PM</p>
 <p>Hacienda Los Laureles</p>
 <a class="btn" href="#">CÓMO LLEGAR</a>
 </section>
 
-<section>
+<section class="fade">
 <h2>Itinerario</h2>
 
 <div class="timeline">
 
-<div class="event">
-<div class="time">5:00 PM</div>
-<div class="title">Ceremonia</div>
-<div class="desc">Uniremos nuestras vidas.</div>
+<div class="timeline-item">
+<h4>16:00 HRS</h4>
+<p>Ceremonia</p>
 </div>
 
-<div class="event">
-<div class="time">6:00 PM</div>
-<div class="title">Cóctel de Bienvenida</div>
-<div class="desc">Brindemos juntos este momento.</div>
+<div class="timeline-item">
+<h4>17:30 HRS</h4>
+<p>Cóctel de bienvenida</p>
 </div>
 
-<div class="event">
-<div class="time">7:30 PM</div>
-<div class="title">Recepción</div>
-<div class="desc">Cena servida.</div>
+<div class="timeline-item">
+<h4>19:00 HRS</h4>
+<p>Recepción</p>
 </div>
 
-<div class="event">
-<div class="time">9:00 PM</div>
-<div class="title">Primer Vals</div>
-<div class="desc">Nuestro primer baile como esposos.</div>
+<div class="timeline-item">
+<h4>20:30 HRS</h4>
+<p>Vals</p>
 </div>
 
-<div class="event">
-<div class="time">10:00 PM</div>
-<div class="title">Fiesta</div>
-<div class="desc">Celebremos hasta el final.</div>
+<div class="timeline-item">
+<h4>21:00 HRS</h4>
+<p>Cena</p>
 </div>
 
+<div class="timeline-item">
+<h4>22:30 HRS</h4>
+<p>Brindis</p>
+</div>
+
+<div class="timeline-item">
+<h4>23:00 HRS</h4>
+<p>Fiesta</p>
+</div>
+
+</div>
 </div>
 </section>
 
-<section id="countdown">
+<section class="fade" id="countdown">
 <h2>Cuenta Regresiva</h2>
 <div id="count"></div>
 </section>
 
-<section>
+<section class="fade">
 <h2>Galería</h2>
 
 <div class="collage">
@@ -428,12 +453,12 @@ color:#D6C08D;
 
 </section>
 
-<section>
+<section class="fade">
 <h2>Código de Vestimenta</h2>
 <img src="vestimenta.png" style="width:300px">
 </section>
 
-<section>
+<section class="fade">
 <h2>Confirmar Asistencia</h2>
 
 <input id="name" placeholder="Nombre">
@@ -446,7 +471,7 @@ color:#D6C08D;
 
 </section>
 
-<section>
+<section class="fade">
 <h2>Agenda este momento</h2>
 <a class="btn" onclick="addCalendar()">AGREGAR AL CALENDARIO</a>
 <a class="btn" onclick="scrollCountdown()">VER CUENTA REGRESIVA</a>
@@ -526,8 +551,8 @@ if(p.y > canvas.height) p.y = -10;
 if(p.x > canvas.width || p.x < 0) p.x = Math.random()*canvas.width;
 
 ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle = `rgba(214,192,141,${p.alpha})`;
+ctx.arc(p.x,p.y,p.size*0.6,0,Math.PI*2);
+ctx.fillStyle = `rgba(198,168,110,${p.alpha * .35})`;
 ctx.fill();
 });
 
@@ -555,7 +580,12 @@ function updateCountdown(){
     const m = Math.floor((diff%(1000*60*60))/(1000*60));
     const s = Math.floor((diff%(1000*60))/1000);
 
-    count.innerHTML = `${d}D ${h}H ${m}M ${s}S`;
+    count.innerHTML = `
+<span>${d}D</span>
+<span>${h}H</span>
+<span>${m}M</span>
+<span>${s}S</span>
+`;
 }
 setInterval(updateCountdown,1000);
 updateCountdown();
@@ -641,7 +671,17 @@ END:VCALENDAR`;
 
 });
 
+const faders = document.querySelectorAll('.fade');
 
+const appear = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+}
+});
+},{threshold:.2});
+
+faders.forEach(el=>appear.observe(el));
   
 </script>
 
