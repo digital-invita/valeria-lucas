@@ -105,15 +105,9 @@ position:relative;
 
 /* línea divisoria editorial */
 section::after{
-content:"";
-display:block;
-width:60px;
-height:1px;
-background:#D6C08D;
-margin:70px auto 0 auto;
-opacity:.6;
+background:#cdb892;
+opacity:.5;
 }
-
 section:last-of-type::after{
 display:none;
 }
@@ -617,6 +611,46 @@ END:VCALENDAR`;
 }
 
 });
+
+
+   /* CAPA BASE */
+body{
+font-family:'Inter',sans-serif;
+background:#f3eee6;
+color:#3a352c;
+overflow-x:hidden;
+position:relative;
+}
+
+/* TEXTURA PAPEL ALGODÓN */
+body::before{
+content:"";
+position:fixed;
+inset:0;
+z-index:-1;
+
+/* mezcla de micro-ruido + fibras */
+background:
+repeating-linear-gradient(
+0deg,
+rgba(0,0,0,.015) 0px,
+rgba(0,0,0,.015) 1px,
+transparent 1px,
+transparent 3px
+),
+repeating-linear-gradient(
+90deg,
+rgba(0,0,0,.012) 0px,
+rgba(0,0,0,.012) 1px,
+transparent 1px,
+transparent 4px
+),
+radial-gradient(circle at 30% 20%, rgba(214,192,141,.08), transparent 40%),
+radial-gradient(circle at 70% 80%, rgba(180,150,90,.06), transparent 40%);
+
+opacity:.6;
+pointer-events:none;
+}
 </script>
 
 </body>
