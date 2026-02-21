@@ -463,46 +463,55 @@ backdrop-filter: blur(18px);
 
 /* UTILIDADES */
 .utilities {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  max-width: 300px;
-  margin: 24px auto 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  max-width: 320px;
+  margin: 26px auto 10px;
 }
-.util {
+
+/* BOTONES ACCIONES UNIFICADOS */
+.util,
+.btn-util {
+  display: block;
+  width: 100%;
+
+  padding: 14px 18px;
+  border-radius: 40px;
+
+  text-decoration: none;
+  font-size: .9rem;
+  letter-spacing: .8px;
+  font-weight: 600;
+  color: #fff;
+
   background: linear-gradient(
     135deg,
     rgba(255,255,255,.22),
     rgba(255,255,255,.08)
   );
 
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 
-  border-radius: 16px;
-  padding: 14px 12px;
-
-  color: #fff;
-  font-size: .8rem;
-  font-weight: 600;
-  letter-spacing: .5px;
+  border: 1px solid rgba(255,255,255,.28);
 
   box-shadow:
     inset 0 1px 1px rgba(255,255,255,.35),
-    0 10px 28px rgba(0,0,0,.45);
+    0 10px 26px rgba(0,0,0,.4);
 
-  text-decoration: none;
-  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  transition: all .28s ease;
 }
 
-.util:hover {
-  transform: translateY(-2px) scale(1.04);
+.util:hover,
+.btn-util:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.18);
   box-shadow:
     inset 0 1px 1px rgba(255,255,255,.45),
-    0 18px 45px rgba(0,0,0,.6);
+    0 16px 36px rgba(0,0,0,.5);
 }
-
-
 /* DIGITAL INVITA DORADO PREMIUM */
 .brand {
   display: block;
@@ -1473,21 +1482,76 @@ body.locked {
 .timeline::before {
   content: "";
   position: absolute;
-  left: 9px;
-  top: 4px;
-  bottom: 4px;
+  left: 50%;
+  top: 0;
+  bottom: 0;
   width: 1.5px;
 
   background: linear-gradient(
     to bottom,
-    rgba(212,175,55,.15),
+    transparent,
     rgba(212,175,55,.9),
-    rgba(212,175,55,.15)
+    rgba(255,241,168,1),
+    rgba(212,175,55,.9),
+    transparent
   );
 
-  box-shadow: 0 0 14px rgba(212,175,55,.6);
+  transform: translateX(-50%);
+  box-shadow: 0 0 12px rgba(212,175,55,.5);
 }
 
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 30% 30%, #fff, #f6d365, #d4af37);
+
+  box-shadow:
+    0 0 8px rgba(255,215,160,.8),
+    0 0 18px rgba(212,175,55,.6);
+
+  animation: dotPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%   { transform: translateX(-50%) scale(1); opacity: 1; }
+  50%  { transform: translateX(-50%) scale(1.4); opacity: .7; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+ .timeline-content {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.10),
+    rgba(255,255,255,.03)
+  );
+
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  padding: 20px 22px;
+
+  border: 1px solid rgba(255,255,255,.18);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.25),
+    0 14px 35px rgba(0,0,0,.35);
+
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.timeline-item:hover .timeline-content {
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.35),
+    0 22px 55px rgba(0,0,0,.45);
+}
+
+  
 /* item */
 .timeline-item {
   position: relative;
@@ -1792,11 +1856,17 @@ body.locked {
 <section class="section">
   <h2>Agenda este momento</h2>
 
-  <a class="btn" href="#" onclick="addToCalendar()">Agregar al calendario</a>
-  <br>
-  <a class="btn" href="javascript:void(0);" onclick="scrollToCountdown()">Ver cuenta regresiva</a>
-</section>
+  <div class="utilities">
+    <a class="btn-util" href="#" onclick="addToCalendar()">
+      Agregar al calendario
+    </a>
 
+    <a class="btn-util" href="#countdown">
+      Ver cuenta regresiva
+    </a>
+  </div>
+
+</section>
 
 <div class="marca-footer">
   <p>Invitación creada con amor digital</p>
