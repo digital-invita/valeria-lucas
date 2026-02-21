@@ -88,7 +88,9 @@ z-index:-1;
 #open{
 position:fixed;
 inset:0;
-background:#000;
+background:
+radial-gradient(circle at 50% 40%, rgba(214,192,141,.15), transparent 60%),
+#0e0e0e;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -97,52 +99,84 @@ z-index:9999;
 cursor:pointer;
 }
 
-#open img{width:130px;margin-bottom:20px}
-#open p{letter-spacing:4px;font-size:12px;color:#aaa}
+#open img{
+width:160px;
+margin-bottom:28px;
+filter:drop-shadow(0 8px 18px rgba(214,192,141,.25));
+}
 
+#open p{
+letter-spacing:6px;
+font-size:11px;
+color:#d6c08d;
+opacity:.8;
+}
 /* ===== HERO ===== */
 
 .hero{
 height:100vh;
-background:url('FPrincipal.jpg') center/cover no-repeat;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-position:relative;
-color:#fff;
+display:grid;
+grid-template-columns:1fr 1fr;
 }
 
-/* degradado editorial */
+.hero::before{
+content:"";
+background:url('FPrincipal.jpg') center/cover no-repeat;
+}
+
 .hero::after{
 content:"";
+background:#111;
+}
+
+.hero-text{
 position:absolute;
-inset:0;
-background:linear-gradient(
-to bottom,
-rgba(20,20,20,.15) 0%,
-rgba(20,20,20,.25) 40%,
-rgba(20,20,20,.55) 75%,
-rgba(20,20,20,.75) 100%
-);
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+color:white;
+}
+
+.hero-text h1{
+font-family:'Playfair Display',serif;
+font-size:clamp(48px,6vw,76px);
+font-weight:400;
+letter-spacing:10px;
+color:#fff;
+text-shadow:0 8px 24px rgba(0,0,0,.35);
+}
+
+.hero-text span{
+display:block;
+font-size:22px;
+letter-spacing:6px;
+margin:18px 0;
+color:#d6c08d;
+}
+
+.hero-text .fecha{
+font-size:14px;
+letter-spacing:6px;
+opacity:.85;
 }
 
 /* ===== SECTIONS ===== */
-   section{
-padding:110px 24px;
-max-width:720px;
-margin:0 auto;
-position:relative;
+section{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:14px;
 }
 
 /* línea divisoria editorial */
 section::after{
 content:"";
 display:block;
-width:80px;
-height:14px;
-margin:80px auto 0;
-background:linear-gradient(to right, transparent, #cdb892, transparent);
+width:120px;
+height:1px;
+margin:90px auto 0;
+background:linear-gradient(to right, transparent, #d6c08d, transparent);
 opacity:.6;
 }
 /* ===== COLLAGE GALLERY ===== */
@@ -171,24 +205,40 @@ transition:.6s;
 #lightbox{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.95);
+background:#000;
 display:none;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:999;
+z-index:9999;
 }
 
 #lightbox img{
 max-width:90%;
-max-height:85%;
+max-height:70vh;
+margin-bottom:20px;
 }
 
-#close{
-position:absolute;
-top:30px;
-right:40px;
-font-size:28px;
+.thumb-bar{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:14px;
+width:100%;
+justify-content:center;
+background:rgba(0,0,0,.6);
+}
+
+.thumb-bar img{
+height:60px;
+opacity:.5;
 cursor:pointer;
+transition:.3s;
+}
+
+.thumb-bar img.active{
+opacity:1;
+transform:scale(1.05);
 }
 
 /* ===== BUTTON ===== */
@@ -261,19 +311,26 @@ padding-left:30px;
 .timeline-item::before{
 content:"";
 position:absolute;
-left:-2px;
-top:6px;
-width:10px;
-height:10px;
+left:-6px;
+top:8px;
+width:12px;
+height:12px;
 border-radius:50%;
-background:#cdb892;
+background:#d6c08d;
+opacity:0;
+transform:scale(.4);
 }
 
-.timeline-item h4{
-font-size:13px;
-letter-spacing:3px;
-color:#a18d6b;
-margin-bottom:6px;
+.timeline-item.visible::before{
+opacity:1;
+transform:scale(1);
+animation:pulse 2.4s infinite;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(214,192,141,.6);}
+70%{box-shadow:0 0 0 14px rgba(214,192,141,0);}
+100%{box-shadow:0 0 0 0 rgba(214,192,141,0);}
 }
 
 /* nombres */
@@ -329,31 +386,35 @@ margin:60px auto;
 }
 
 #count{
-font-family:'Playfair Display', serif;
-font-size:48px;
-letter-spacing:6px;
-color:#8a7a5c;
-text-shadow:0 4px 12px rgba(0,0,0,0.15);
-margin-top:20px;
+display:flex;
+gap:18px;
+justify-content:center;
+align-items:center;
+flex-wrap:nowrap;
+font-family:'Playfair Display',serif;
+font-size:22px;
+letter-spacing:4px;
+color:#2f2a24;
 }
 
 #count span{
-display:inline-block;
-min-width:60px;
-background:rgba(214,192,141,0.15);
-padding:12px 16px;
-margin:0 6px;
-border-radius:12px;
-font-size:22px;
-letter-spacing:2px;
-color:#2f2a24;
-font-weight:500;
+background:transparent;
+padding:0;
+margin:0;
+border:none;
+font-size:26px;
+letter-spacing:3px;
 }
-   
+body.lock{
+overflow:hidden;
+height:100vh;
+}   
 </style>
 </head>
 
 <body>
+
+
 
 <canvas id="particles"></canvas>
 
@@ -366,8 +427,10 @@ font-weight:500;
 
 <div class="hero">
 <div class="hero-text">
-<h1>Valeria <span>&</span> Lucas</h1>
-<p>20 · JULIO · 2026</p>
+<h1>Valeria</h1>
+<span>&</span>
+<h1>Lucas</h1>
+<p class="fecha">20 · JULIO · 2026</p>
 </div>
 </div>
 
@@ -486,9 +549,12 @@ font-weight:500;
 <div id="lightbox">
 <span id="close">✕</span>
 <img>
+<div class="thumb-bar"></div>
 </div>
 
 <script>
+
+   
 document.addEventListener("DOMContentLoaded", function(){
 
 /* ===============================
@@ -502,14 +568,17 @@ const lightboxImg = lightbox.querySelector("img");
 const closeBtn = document.getElementById("close");
 const guestsSelect = document.getElementById("guests");
 const nameInput = document.getElementById("name");
-
+document.body.classList.add("lock");
+window.scrollTo(0,0);
 /* ===============================
    ABRIR INVITACIÓN + MÚSICA
 =================================*/
+/* ABRIR INVITACIÓN */
 openScreen.addEventListener("click", function(){
     openScreen.style.display = "none";
+    document.body.classList.remove("lock");
+    window.scrollTo(0,0);
 
-    // iPhone bloquea autoplay — esto lo permite
     music.currentTime = 0;
     music.play().catch(()=>{});
 });
@@ -564,8 +633,6 @@ animate();
 /* ===============================
    CUENTA REGRESIVA
 =================================*/
-const targetDate = new Date("2026-07-20T00:00:00").getTime();
-
 function updateCountdown(){
     const now = new Date().getTime();
     const diff = targetDate - now;
@@ -581,35 +648,57 @@ function updateCountdown(){
     const s = Math.floor((diff%(1000*60))/1000);
 
     count.innerHTML = `
-<span>${d}D</span>
-<span>${h}H</span>
-<span>${m}M</span>
-<span>${s}S</span>
-`;
+    <span>${d}D</span> :
+    <span>${h}H</span> :
+    <span>${m}M</span> :
+    <span>${s}S</span>
+    `;
 }
+
 setInterval(updateCountdown,1000);
 updateCountdown();
 
 /* ===============================
    GALERÍA LIGHTBOX
 =================================*/
-document.querySelectorAll(".collage img").forEach(img=>{
-    img.addEventListener("click", function(){
-        lightbox.style.display = "flex";
-        lightboxImg.src = this.src;
+const images = Array.from(document.querySelectorAll(".collage img"));
+const thumbBar = document.querySelector(".thumb-bar");
+
+images.forEach((img,i)=>{
+    const t = document.createElement("img");
+    t.src = img.src;
+    thumbBar.appendChild(t);
+
+    t.addEventListener("click", ()=>{
+        showImage(i);
+    });
+
+    img.addEventListener("click", ()=>{
+        openGallery(i);
     });
 });
 
-closeBtn.addEventListener("click", ()=>{
-    lightbox.style.display = "none";
-});
+function openGallery(i){
+    lightbox.style.display="flex";
+    document.body.classList.add("lock");
+    showImage(i);
+}
 
+function showImage(i){
+    lightboxImg.src = images[i].src;
+    thumbBar.querySelectorAll("img").forEach(el=>el.classList.remove("active"));
+    thumbBar.children[i].classList.add("active");
+}
+
+function closeGallery(){
+    lightbox.style.display="none";
+    document.body.classList.remove("lock");
+}
+
+closeBtn.addEventListener("click", closeGallery);
 lightbox.addEventListener("click", e=>{
-    if(e.target === lightbox){
-        lightbox.style.display = "none";
-    }
+    if(e.target===lightbox) closeGallery();
 });
-
 /* ===============================
    ACOMPAÑANTES EDITABLE
 =================================*/
@@ -682,7 +771,19 @@ entry.target.classList.add('visible');
 },{threshold:.2});
 
 faders.forEach(el=>appear.observe(el));
-  
+
+const timelineItems = document.querySelectorAll('.timeline-item');
+
+const timelineObserver = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+}
+});
+},{threshold:.5});
+
+timelineItems.forEach(el=>timelineObserver.observe(el));
+   
 </script>
 
 </body>
