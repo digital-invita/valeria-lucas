@@ -1459,16 +1459,16 @@ body.locked {
 .timeline {
   position: relative;
   margin-top: 25px;
-  padding-left: 30px;
+  padding-left: 40px;
 }
 
 /* LÍNEA VERTICAL DORADA */
 .timeline::before {
   content: "";
   position: absolute;
-  left: 18px;          /* alineado con puntos */
-  top: 10px;
-  bottom: 10px;
+  left: 16px; /* centro matemático del punto */
+  top: 0;
+  bottom: 0;
   width: 2px;
 
   background: linear-gradient(
@@ -1488,25 +1488,14 @@ body.locked {
 /* Cada item */
 .timeline-item {
   position: relative;
-  padding: 22px 0 22px 50px;
-  text-align: left;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all .9s ease;
+  margin-bottom: 30px;
 }
 
-.timeline-item.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Punto premium tipo joya */
 .timeline-item::before {
   content: "";
   position: absolute;
-  left: -22px; /* alineación perfecta */
-  top: 6px;
-
+  left: -24px;   /* alineado con línea */
+  top: 2px;      /* centrado con texto */
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -1514,39 +1503,32 @@ body.locked {
   background: radial-gradient(
     circle at 30% 30%,
     #fff8d6,
-    #f6d365 40%,
-    #d4af37 75%
+    #f6d365 45%,
+    #d4af37 80%
   );
 
   box-shadow:
     0 0 6px rgba(246,211,101,.5),
     0 0 14px rgba(212,175,55,.35);
 
-  transition: transform .6s ease, box-shadow .6s ease;
+  transform: scale(1);
 }
 
 /* Latido fino (más elegante) */
 @keyframes elegantHeartbeat {
   0% {
     transform: scale(1);
-    box-shadow:
-      0 0 6px rgba(246,211,101,.4),
-      0 0 12px rgba(212,175,55,.25);
   }
-
   50% {
-    transform: scale(1.08); /* mucho más sutil */
-    box-shadow:
-      0 0 10px rgba(255,241,168,.7),
-      0 0 20px rgba(212,175,55,.45);
+    transform: scale(1.12);
   }
-
   100% {
     transform: scale(1);
-    box-shadow:
-      0 0 6px rgba(246,211,101,.4),
-      0 0 12px rgba(212,175,55,.25);
   }
+}
+
+.timeline-item.show::before {
+  animation: elegantHeartbeat 4s ease-in-out infinite;
 }
 
 
