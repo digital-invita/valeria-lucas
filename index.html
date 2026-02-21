@@ -1456,17 +1456,21 @@ body.locked {
    ITINERARIO · IZQUIERDA PREMIUM
 ================================ */
 
+/* ================================
+   ITINERARIO · PERFECT ALIGN
+================================ */
+
 .timeline {
   position: relative;
   margin-top: 25px;
-  padding-left: 36px;
+  padding-left: 50px; /* espacio real para línea */
 }
 
-/* LÍNEA VERTICAL DORADA */
+/* LÍNEA CENTRAL */
 .timeline::before {
   content: "";
   position: absolute;
-  left: 18px; /* centro matemático del punto */
+  left: 20px; /* centro exacto del punto */
   top: 0;
   bottom: 0;
   width: 2px;
@@ -1483,21 +1487,20 @@ body.locked {
   box-shadow: 0 0 12px rgba(212,175,55,.4);
 }
 
-
-
-/* Cada item */
+/* ITEM */
 .timeline-item {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
+/* PUNTO PERFECTAMENTE CENTRADO */
 .timeline-item::before {
   content: "";
   position: absolute;
-  left: -18px;   /* alineado con línea */
-  top: 2px;      /* centrado con texto */
-  width: 12px;
-  height: 12px;
+  left: -30px; /* 50 padding - 20 línea */
+  top: 6px; /* alineado con título */
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
 
   background: radial-gradient(
@@ -1508,22 +1511,22 @@ body.locked {
   );
 
   box-shadow:
-    0 0 6px rgba(246,211,101,.5),
-    0 0 14px rgba(212,175,55,.35);
+    0 0 8px rgba(246,211,101,.6),
+    0 0 18px rgba(212,175,55,.4);
 
   transform: scale(1);
 }
 
-/* Latido fino (más elegante) */
+/* LATIDO ELEGANTE REAL */
 @keyframes elegantHeartbeat {
   0%   { transform: scale(1); }
-  40%  { transform: scale(1.08); }
-  60%  { transform: scale(1.05); }
+  40%  { transform: scale(1.15); }
+  60%  { transform: scale(1.08); }
   100% { transform: scale(1); }
 }
 
 .timeline-item.show::before {
-  animation: elegantHeartbeat 4s ease-in-out infinite;
+  animation: elegantHeartbeat 3.5s ease-in-out infinite;
 }
 
 
@@ -2419,9 +2422,10 @@ const observer = new IntersectionObserver(entries=>{
 
 items.forEach(el=>observer.observe(el));
 
-// ANIMAR ITINERARIO
-const timelineItems = document.querySelectorAll(".timeline-item");
 
+
+// OBSERVAR TIMELINE
+const timelineItems = document.querySelectorAll(".timeline-item");
 timelineItems.forEach(item => observer.observe(item));
 
 </script>
