@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Valeria & Lucas</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
@@ -17,7 +16,6 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 
-/* CAPA BASE */
 body{
 font-family:'Inter',sans-serif;
 background:#f3eee6;
@@ -26,47 +24,13 @@ overflow-x:hidden;
 position:relative;
 }
 
-/* TEXTURA PAPEL ALGODÓN */
-body::before{
-content:"";
-position:fixed;
-inset:0;
-z-index:-1;
-
-/* mezcla de micro-ruido + fibras */
-background:
-repeating-linear-gradient(
-0deg,
-rgba(0,0,0,.015) 0px,
-rgba(0,0,0,.015) 1px,
-transparent 1px,
-transparent 3px
-),
-repeating-linear-gradient(
-90deg,
-rgba(0,0,0,.012) 0px,
-rgba(0,0,0,.012) 1px,
-transparent 1px,
-transparent 4px
-),
-radial-gradient(circle at 30% 20%, rgba(214,192,141,.08), transparent 40%),
-radial-gradient(circle at 70% 80%, rgba(180,150,90,.06), transparent 40%);
-
-opacity:.6;
-pointer-events:none;
-}
-   
-body::after{
-content:"";
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at 20% 10%, rgba(214,192,141,.12), transparent 40%),
-radial-gradient(circle at 80% 90%, rgba(180,150,90,.10), transparent 40%);
-z-index:-1;
+/* 🔒 SCROLL LOCK */
+body.lock{
+overflow:hidden;
+height:100vh;
 }
 
-/* capa clara encima */
+/* TEXTURA */
 body::before{
 content:"";
 position:fixed;
@@ -75,17 +39,14 @@ background:#f6f1e8;
 z-index:-2;
 }
 
-/* ===== PARTICULAS ===== */
-
 canvas{
 position:fixed;
 inset:0;
 z-index:-1;
 }
 
-/* ===== OPEN SCREEN ===== */
-
-#open{
+/* ===== OVERLAY ===== */
+#overlay{
 position:fixed;
 inset:0;
 background:
@@ -97,22 +58,28 @@ justify-content:center;
 align-items:center;
 z-index:9999;
 cursor:pointer;
+transition:opacity .8s ease;
 }
 
-#open img{
+#overlay.hide{
+opacity:0;
+pointer-events:none;
+}
+
+#overlay img{
 width:160px;
 margin-bottom:28px;
 filter:drop-shadow(0 8px 18px rgba(214,192,141,.25));
 }
 
-#open p{
+#overlay p{
 letter-spacing:6px;
 font-size:11px;
 color:#d6c08d;
 opacity:.8;
 }
-/* ===== HERO ===== */
 
+/* HERO */
 .hero{
 height:100vh;
 display:grid;
@@ -140,11 +107,9 @@ color:white;
 
 .hero-text h1{
 font-family:'Playfair Display',serif;
-font-size:clamp(48px,6vw,76px);
-font-weight:400;
-letter-spacing:10px;
-color:#fff;
-text-shadow:0 8px 24px rgba(0,0,0,.35);
+font-size:clamp(42px,6vw,68px);
+letter-spacing:8px;
+color:#F1E7D0;
 }
 
 .hero-text span{
@@ -156,12 +121,13 @@ color:#d6c08d;
 }
 
 .hero-text .fecha{
-font-size:14px;
-letter-spacing:6px;
-opacity:.85;
+margin-top:18px;
+font-size:15px;
+letter-spacing:4px;
+color:#8a7a5c;
 }
 
-/* ===== SECTIONS ===== */
+/* SECCIONES */
 section{
 display:flex;
 flex-direction:column;
@@ -169,7 +135,6 @@ align-items:center;
 gap:14px;
 }
 
-/* línea divisoria editorial */
 section::after{
 content:"";
 display:block;
@@ -179,8 +144,8 @@ margin:90px auto 0;
 background:linear-gradient(to right, transparent, #d6c08d, transparent);
 opacity:.6;
 }
-/* ===== COLLAGE GALLERY ===== */
 
+/* GALERÍA */
 .collage{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -196,12 +161,10 @@ transition:.6s;
 }
 
 .collage img:hover{transform:scale(1.03)}
-
 .vertical{grid-row:span 2;height:420px}
 .horizontal{grid-column:span 2;height:240px}
 
-/* ===== LIGHTBOX ===== */
-
+/* LIGHTBOX */
 #lightbox{
 position:fixed;
 inset:0;
@@ -241,187 +204,99 @@ opacity:1;
 transform:scale(1.05);
 }
 
-/* ===== BUTTON ===== */
-
-button, .btn{
+/* BOTONES */
+button,.btn{
 padding:14px 28px;
 border:1px solid #cdb892;
 background:transparent;
 color:#7a6a4f;
 letter-spacing:2px;
 font-size:12px;
-text-transform:uppercase;
 cursor:pointer;
-transition:.35s ease;
 }
 
-button:hover, .btn:hover{
+button:hover,.btn:hover{
 background:#cdb892;
 color:white;
-transform:translateY(-2px);
 }
 
-/* ===== COUNTDOWN ===== */
-
+/* COUNTDOWN */
 #count{
 font-size:30px;
 letter-spacing:4px;
 }
 
-/* ===== FORM ===== */
+#count span{
+font-size:26px;
+}
 
+/* FORM */
 input,select{
 padding:12px;
 margin:8px;
 width:260px;
 }
 
-/* ===== FOOTER ===== */
-
+/* FOOTER */
 footer{
 padding:70px 20px;
 font-size:13px;
 color:#aaa;
 }
-/* ===== TIMELINE ===== */
 
-.timeline{
-position:relative;
-margin-top:40px;
-padding-left:20px;
-text-align:left;
-}
-
-.timeline::before{
-content:"";
-position:absolute;
-left:10px;
-top:0;
-bottom:0;
-width:1px;
-background:#d8c7a3;
-}
-
-.timeline-item{
-position:relative;
-margin-bottom:40px;
-padding-left:30px;
-}
-
-.timeline-item::before{
-content:"";
-position:absolute;
-left:-6px;
-top:8px;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#d6c08d;
-opacity:0;
-transform:scale(.4);
-}
-
-.timeline-item.visible::before{
-opacity:1;
-transform:scale(1);
-animation:pulse 2.4s infinite;
-}
-
-@keyframes pulse{
-0%{box-shadow:0 0 0 0 rgba(214,192,141,.6);}
-70%{box-shadow:0 0 0 14px rgba(214,192,141,0);}
-100%{box-shadow:0 0 0 0 rgba(214,192,141,0);}
-}
-
-/* nombres */
 .hero-text h1{
-font-family:'Playfair Display',serif;
-font-size:clamp(42px,6vw,68px);
-font-weight:400;
-letter-spacing:8px;
-color:#F1E7D0;
-text-shadow:0 6px 18px rgba(0,0,0,.25);
-}
-
-/* la & */
-.hero h1{
-font-family:'Playfair Display',serif;
-font-weight:500;
-font-size:42px;
-letter-spacing:6px;
-color:#2f2a24;
-text-transform:uppercase;
-}
-
-/* fecha */
-.hero .fecha{
-margin-top:18px;
-font-size:15px;
-letter-spacing:4px;
-color:#8a7a5c;
-}
-
-.fade{
 opacity:0;
-transform:translateY(30px);
-transition:1.2s ease;
+transform:translateY(40px);
+transition:1.6s cubic-bezier(.2,.8,.2,1);
 }
 
-.fade.visible{
+.hero-text.show h1{
 opacity:1;
 transform:translateY(0);
-}   
-   
-#countdown{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-padding:60px 20px;
-background:rgba(255,255,255,0.05); /* capa sutil sobre la textura */
-border-radius:16px;
-box-shadow:0 8px 24px rgba(0,0,0,0.08);
-max-width:400px;
-margin:60px auto;
 }
 
-#count{
-display:flex;
-gap:18px;
-justify-content:center;
-align-items:center;
-flex-wrap:nowrap;
-font-family:'Playfair Display',serif;
-font-size:22px;
-letter-spacing:4px;
-color:#2f2a24;
+.hero-text.show h1:nth-child(1){transition-delay:.6s}
+.hero-text.show span{transition-delay:1.2s}
+.hero-text.show h1:nth-child(3){transition-delay:1.8s}
+.hero-text.show .fecha{transition-delay:2.2s}
+
+.hero-text span,
+.hero-text .fecha{
+opacity:0;
+transform:translateY(30px);
+transition:1.4s ease;
 }
 
-#count span{
-background:transparent;
-padding:0;
-margin:0;
-border:none;
-font-size:26px;
-letter-spacing:3px;
+.hero-text.show span,
+.hero-text.show .fecha{
+opacity:1;
+transform:translateY(0);
 }
-body.lock{
-overflow:hidden;
-height:100vh;
-}   
+
+.hero-text h1{
+background:linear-gradient(120deg,#fff,#f1e7d0,#d6c08d,#fff);
+background-size:200% 100%;
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:goldShine 6s linear infinite;
+}
+
+@keyframes goldShine{
+0%{background-position:-200% 0}
+100%{background-position:200% 0}
+}
 </style>
 </head>
 
-<body>
+<body class="lock">
 
-
-
-<canvas id="particles"></canvas>
-
-<div id="open">
+<!-- OVERLAY -->
+<div id="overlay">
 <img src="sello_cera.png">
 <p>TOCA PARA ABRIR INVITACIÓN</p>
 </div>
+
+<canvas id="particles"></canvas>
 
 <audio id="music" src="cancion.mp3" loop></audio>
 
@@ -434,77 +309,32 @@ height:100vh;
 </div>
 </div>
 
-<section class="fade">
+<section>
 <h2>Nuestra Historia</h2>
 <img src="FHistoria.jpg" style="width:100%;border-radius:10px;">
 </section>
 
-<section class="fade">
+<section>
 <h2>Ceremonia</h2>
 <p>5:00 PM</p>
 <p>Parroquia San Miguel</p>
-<a class="btn" href="#">CÓMO LLEGAR</a>
+<a class="btn">CÓMO LLEGAR</a>
 </section>
 
-<section class="fade">
+<section>
 <h2>Recepción</h2>
 <p>7:30 PM</p>
 <p>Hacienda Los Laureles</p>
-<a class="btn" href="#">CÓMO LLEGAR</a>
+<a class="btn">CÓMO LLEGAR</a>
 </section>
 
-<section class="fade">
-<h2>Itinerario</h2>
-
-<div class="timeline">
-
-<div class="timeline-item">
-<h4>16:00 HRS</h4>
-<p>Ceremonia</p>
-</div>
-
-<div class="timeline-item">
-<h4>17:30 HRS</h4>
-<p>Cóctel de bienvenida</p>
-</div>
-
-<div class="timeline-item">
-<h4>19:00 HRS</h4>
-<p>Recepción</p>
-</div>
-
-<div class="timeline-item">
-<h4>20:30 HRS</h4>
-<p>Vals</p>
-</div>
-
-<div class="timeline-item">
-<h4>21:00 HRS</h4>
-<p>Cena</p>
-</div>
-
-<div class="timeline-item">
-<h4>22:30 HRS</h4>
-<p>Brindis</p>
-</div>
-
-<div class="timeline-item">
-<h4>23:00 HRS</h4>
-<p>Fiesta</p>
-</div>
-
-</div>
-</div>
-</section>
-
-<section class="fade" id="countdown">
+<section id="countdown">
 <h2>Cuenta Regresiva</h2>
 <div id="count"></div>
 </section>
 
-<section class="fade">
+<section>
 <h2>Galería</h2>
-
 <div class="collage">
 <img src="G1.jpg" class="vertical">
 <img src="G3.jpg" class="horizontal">
@@ -513,37 +343,10 @@ height:100vh;
 <img src="G5.jpg" class="vertical">
 <img src="G6.jpg" class="horizontal">
 </div>
-
-</section>
-
-<section class="fade">
-<h2>Código de Vestimenta</h2>
-<img src="vestimenta.png" style="width:300px">
-</section>
-
-<section class="fade">
-<h2>Confirmar Asistencia</h2>
-
-<input id="name" placeholder="Nombre">
-
-<select id="guests"></select>
-
-<br>
-<a class="btn" onclick="sendConfirm()">CONFIRMAR</a>
-<a class="btn" onclick="decline()">NO PODRÉ ASISTIR</a>
-
-</section>
-
-<section class="fade">
-<h2>Agenda este momento</h2>
-<a class="btn" onclick="addCalendar()">AGREGAR AL CALENDARIO</a>
-<a class="btn" onclick="scrollCountdown()">VER CUENTA REGRESIVA</a>
 </section>
 
 <footer>
 <p>Invitación creada con amor digital</p>
-<p>DIGITAL INVITA</p>
-<a class="btn" href="https://wa.me/521XXXXXXXXXX?text=Hola%20quiero%20mi%20invitación">DA CLICK AQUÍ</a>
 </footer>
 
 <div id="lightbox">
@@ -553,59 +356,49 @@ height:100vh;
 </div>
 
 <script>
-
-   
-document.addEventListener("DOMContentLoaded", function(){
-
-/* ===============================
-   REFERENCIAS SEGURAS (NO GLOBALES)
-=================================*/
-const openScreen = document.getElementById("open");
+const overlay = document.getElementById("overlay");
 const music = document.getElementById("music");
-const count = document.getElementById("count");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = lightbox.querySelector("img");
-const closeBtn = document.getElementById("close");
-const guestsSelect = document.getElementById("guests");
-const nameInput = document.getElementById("name");
-document.body.classList.add("lock");
-window.scrollTo(0,0);
-/* ===============================
-   ABRIR INVITACIÓN + MÚSICA
-=================================*/
-/* ABRIR INVITACIÓN */
-openScreen.addEventListener("click", function(){
-    openScreen.style.display = "none";
-    document.body.classList.remove("lock");
-    window.scrollTo(0,0);
 
-    music.currentTime = 0;
-    music.play().catch(()=>{});
+/* BLOQUEAR SCROLL INICIAL */
+window.scrollTo(0,0);
+
+/* ABRIR */
+overlay.addEventListener("click",()=>{
+
+overlay.classList.add("hide");
+document.body.classList.remove("lock");
+window.scrollTo(0,0);
+
+music.currentTime=0;
+music.play().catch(()=>{});
+
+// activar animación nombres
+setTimeout(()=>{
+document.querySelector(".hero-text").classList.add("show");
+},400);
+
 });
 
-/* ===== PARTICULAS LUJO ===== */
-
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
 function resize(){
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 }
 resize();
-window.addEventListener("resize", resize);
+window.addEventListener("resize",resize);
 
-/* partículas en diferentes profundidades */
-let particles = [];
+let particles=[];
 
-for(let i=0;i<55;i++){
+for(let i=0;i<70;i++){
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-r:Math.random()*1.8 + .2,
-speed:Math.random()*0.15 + 0.05,
-alpha:Math.random()*0.5 + 0.2,
-drift:(Math.random()-.5)*0.2
+r:Math.random()*1.8+.4,
+speed:Math.random()*0.3+0.05,
+alpha:Math.random()*0.6+0.2,
+drift:(Math.random()-.5)*0.3
 });
 }
 
@@ -613,176 +406,86 @@ function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
 particles.forEach(p=>{
-p.y += p.speed;
-p.x += p.drift;
+p.y+=p.speed;
+p.x+=p.drift;
 
-if(p.y > canvas.height) p.y = -10;
-if(p.x > canvas.width || p.x < 0) p.x = Math.random()*canvas.width;
+if(p.y>canvas.height)p.y=-10;
+if(p.x>canvas.width||p.x<0)p.x=Math.random()*canvas.width;
+
+const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
+g.addColorStop(0,`rgba(214,192,141,${p.alpha})`);
+g.addColorStop(.4,`rgba(214,192,141,${p.alpha*.4})`);
+g.addColorStop(1,"rgba(214,192,141,0)");
 
 ctx.beginPath();
-ctx.arc(p.x,p.y,p.size*0.6,0,Math.PI*2);
-ctx.fillStyle = `rgba(198,168,110,${p.alpha * .35})`;
+ctx.fillStyle=g;
+ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2);
 ctx.fill();
 });
 
 requestAnimationFrame(animate);
 }
-
 animate();
+   
+/* COUNTDOWN */
+const count=document.getElementById("count");
+const target=new Date("2026-07-20T00:00:00").getTime();
 
-/* ===============================
-   CUENTA REGRESIVA
-=================================*/
 function updateCountdown(){
-    const now = new Date().getTime();
-    const diff = targetDate - now;
+const now=new Date().getTime();
+const diff=target-now;
 
-    if(diff <= 0){
-        count.innerHTML = "¡HOY ES EL GRAN DÍA!";
-        return;
-    }
+if(diff<=0){
+count.innerHTML="¡HOY ES EL GRAN DÍA!";
+return;
+}
 
-    const d = Math.floor(diff / (1000*60*60*24));
-    const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const m = Math.floor((diff%(1000*60*60))/(1000*60));
-    const s = Math.floor((diff%(1000*60))/1000);
+const d=Math.floor(diff/(1000*60*60*24));
+const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+const m=Math.floor((diff%(1000*60*60))/(1000*60));
+const s=Math.floor((diff%(1000*60))/1000);
 
-    count.innerHTML = `
-    <span>${d}D</span> :
-    <span>${h}H</span> :
-    <span>${m}M</span> :
-    <span>${s}S</span>
-    `;
+count.innerHTML=`<span>${d}D</span> :
+<span>${h}H</span> :
+<span>${m}M</span> :
+<span>${s}S</span>`;
 }
 
 setInterval(updateCountdown,1000);
 updateCountdown();
 
-/* ===============================
-   GALERÍA LIGHTBOX
-=================================*/
-const images = Array.from(document.querySelectorAll(".collage img"));
-const thumbBar = document.querySelector(".thumb-bar");
+/* LIGHTBOX */
+const images=document.querySelectorAll(".collage img");
+const lightbox=document.getElementById("lightbox");
+const lightboxImg=lightbox.querySelector("img");
+const thumbBar=document.querySelector(".thumb-bar");
 
 images.forEach((img,i)=>{
-    const t = document.createElement("img");
-    t.src = img.src;
-    thumbBar.appendChild(t);
+const t=document.createElement("img");
+t.src=img.src;
+thumbBar.appendChild(t);
 
-    t.addEventListener("click", ()=>{
-        showImage(i);
-    });
-
-    img.addEventListener("click", ()=>{
-        openGallery(i);
-    });
+img.onclick=()=>openGallery(i);
+t.onclick=()=>showImage(i);
 });
 
 function openGallery(i){
-    lightbox.style.display="flex";
-    document.body.classList.add("lock");
-    showImage(i);
+lightbox.style.display="flex";
+document.body.classList.add("lock");
+showImage(i);
 }
 
 function showImage(i){
-    lightboxImg.src = images[i].src;
-    thumbBar.querySelectorAll("img").forEach(el=>el.classList.remove("active"));
-    thumbBar.children[i].classList.add("active");
+lightboxImg.src=images[i].src;
+thumbBar.querySelectorAll("img").forEach(el=>el.classList.remove("active"));
+thumbBar.children[i].classList.add("active");
 }
 
-function closeGallery(){
-    lightbox.style.display="none";
-    document.body.classList.remove("lock");
-}
+document.getElementById("close").onclick=()=>{
+lightbox.style.display="none";
+document.body.classList.remove("lock");
+};
 
-closeBtn.addEventListener("click", closeGallery);
-lightbox.addEventListener("click", e=>{
-    if(e.target===lightbox) closeGallery();
-});
-/* ===============================
-   ACOMPAÑANTES EDITABLE
-=================================*/
-let maxGuests = 4; // ← cambia aquí si quieres más
-
-for(let i=0;i<maxGuests;i++){
-    const opt = document.createElement("option");
-    opt.value = i;
-    opt.textContent = i === 0 ? "Solo yo" : `Me acompañan ${i}`;
-    guestsSelect.appendChild(opt);
-}
-
-/* ===============================
-   WHATSAPP
-=================================*/
-window.sendConfirm = function(){
-    const name = nameInput.value || "Invitado";
-    const guests = guestsSelect.value;
-
-    const msg = `Confirmo asistencia:\n${name}\nAcompañantes: ${guests}`;
-    window.open(`https://wa.me/521TU_NUMERO?text=${encodeURIComponent(msg)}`);
-}
-
-window.decline = function(){
-    const name = nameInput.value || "Invitado";
-    const msg = `${name} no podrá asistir.`;
-
-    window.open(`https://wa.me/521TU_NUMERO?text=${encodeURIComponent(msg)}`);
-}
-
-/* ===============================
-   SCROLL A COUNTDOWN CENTRADO
-=================================*/
-window.scrollCountdown = function(){
-    document.getElementById("countdown")
-        .scrollIntoView({behavior:"smooth", block:"center"});
-}
-
-/* ===============================
-   ARCHIVO CALENDARIO REAL (.ICS)
-=================================*/
-window.addCalendar = function(){
-    const data =
-`BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:Boda Valeria & Lucas
-DTSTART:20260720T170000
-DTEND:20260720T230000
-END:VEVENT
-END:VCALENDAR`;
-
-    const blob = new Blob([data], {type:"text/calendar"});
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "boda.ics";
-    link.click();
-}
-
-});
-
-const faders = document.querySelectorAll('.fade');
-
-const appear = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add('visible');
-}
-});
-},{threshold:.2});
-
-faders.forEach(el=>appear.observe(el));
-
-const timelineItems = document.querySelectorAll('.timeline-item');
-
-const timelineObserver = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add('visible');
-}
-});
-},{threshold:.5});
-
-timelineItems.forEach(el=>timelineObserver.observe(el));
    
 </script>
 
