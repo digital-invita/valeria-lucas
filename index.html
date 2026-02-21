@@ -1459,18 +1459,21 @@ body.locked {
 /* ================================
    ITINERARIO · PERFECT ALIGN
 ================================ */
+/* ================================
+   TIMELINE PERFECT ALIGN
+================================ */
 
 .timeline {
   position: relative;
-  margin-top: 25px;
-  padding-left: 50px; /* espacio real para línea */
+  margin-top: 30px;
+  padding-left: 60px; /* espacio real */
 }
 
-/* LÍNEA CENTRAL */
+/* LÍNEA */
 .timeline::before {
   content: "";
   position: absolute;
-  left: 20px; /* centro exacto del punto */
+  left: 30px; /* centro matemático */
   top: 0;
   bottom: 0;
   width: 2px;
@@ -1484,23 +1487,27 @@ body.locked {
     transparent
   );
 
-  box-shadow: 0 0 12px rgba(212,175,55,.4);
+  box-shadow: 0 0 14px rgba(212,175,55,.4);
 }
 
 /* ITEM */
 .timeline-item {
   position: relative;
-  margin-bottom: 35px;
+  margin-bottom: 45px;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(.19,1,.22,1);
 }
 
-/* PUNTO PERFECTAMENTE CENTRADO */
+/* PUNTO */
 .timeline-item::before {
   content: "";
   position: absolute;
-  left: -30px; /* 50 padding - 20 línea */
-  top: 6px; /* alineado con título */
-  width: 14px;
-  height: 14px;
+  left: -30px; /* mismo centro que línea */
+  top: 8px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
 
   background: radial-gradient(
@@ -1511,17 +1518,17 @@ body.locked {
   );
 
   box-shadow:
-    0 0 8px rgba(246,211,101,.6),
-    0 0 18px rgba(212,175,55,.4);
+    0 0 10px rgba(246,211,101,.7),
+    0 0 20px rgba(212,175,55,.4);
 
   transform: scale(1);
 }
 
-/* LATIDO ELEGANTE REAL */
+/* LATIDO SUAVE */
 @keyframes elegantHeartbeat {
   0%   { transform: scale(1); }
-  40%  { transform: scale(1.15); }
-  60%  { transform: scale(1.08); }
+  40%  { transform: scale(1.12); }
+  60%  { transform: scale(1.06); }
   100% { transform: scale(1); }
 }
 
@@ -1529,35 +1536,11 @@ body.locked {
   animation: elegantHeartbeat 3.5s ease-in-out infinite;
 }
 
-
- .timeline-content {
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,.10),
-    rgba(255,255,255,.03)
-  );
-
-  backdrop-filter: blur(18px);
-  border-radius: 22px;
-  padding: 20px 22px;
-
-  border: 1px solid rgba(255,255,255,.18);
-
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.25),
-    0 14px 35px rgba(0,0,0,.35);
-
-  transition: transform .4s ease, box-shadow .4s ease;
+/* ANIMACIÓN AL APARECER */
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
 }
-
-.timeline-item:hover .timeline-content {
-  transform: translateY(-4px);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.35),
-    0 22px 55px rgba(0,0,0,.45);
-}
-
-  
 
 /* hora */
 .timeline-time {
@@ -2426,8 +2409,28 @@ items.forEach(el=>observer.observe(el));
 
 // OBSERVAR TIMELINE
 const timelineItems = document.querySelectorAll(".timeline-item");
-timelineItems.forEach(item => observer.observe(item));
 
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+
+    if (entry.isIntersecting) {
+
+      const index = Array.from(timelineItems).indexOf(entry.target);
+
+      setTimeout(() => {
+        entry.target.classList.add("show");
+      }, index * 250); // delay elegante
+
+      observer.unobserve(entry.target);
+    }
+
+  });
+}, {
+  threshold: 0.45,
+  rootMargin: "0px 0px -60px 0px"
+});
+
+timelineItems.forEach(item => observer.observe(item));
 </script>
 </body>
 </html>
