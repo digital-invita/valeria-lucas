@@ -1,493 +1,2191 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valeria & Lucas</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Mis XV Sofía</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-:root{
---gold:#D6C08D;
---glass:rgba(255,255,255,.08);
---blur:blur(20px);
+:root {
+  --bg-color: linear-gradient(135deg, #b76e79, #7a2e4d);
+  --bg-image: none;
+  --gold-text: linear-gradient(135deg, #f6d365, #fda085, #d4af37, #fff1a8);
+  --gold-btn: linear-gradient(135deg, #fff1a8 0%, #f6d365 25%, #d4af37 50%, #f6d365 75%, #fff1a8 100%);
+  --text-light: #f4f1f7;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:'Inter',sans-serif;
-background:#f3eee6;
-color:#3a352c;
-overflow-x:hidden;
-position:relative;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+  background: var(--bg-image), var(--bg-color);
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--text-light);
+  overflow-x: hidden;
+  font-size: 19px;
+  line-height: 1.7;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll !important;
+  }
+}
+/* CANVAS PARTÍCULAS */
+#particles {
+  position: fixed; /* cubre pantalla pero no bloquea scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;   /* altura del viewport */
+  z-index: 1;
+  pointer-events: none; /* deja pasar scroll */
 }
 
-/* 🔒 SCROLL LOCK */
-body.lock{
-overflow:hidden;
-height:100vh;
+
+
+
+
+
+/* OVERLAY */
+#overlay {
+   text-align: center;
+  position: fixed;
+  inset: 0;
+
+  background: linear-gradient(
+    145deg,
+    rgba(20,10,15,0.65),
+    rgba(0,0,0,0.85)
+  );
+
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+  gap: 20px;
+
+  transition: opacity .8s ease;
 }
 
-/* TEXTURA */
-body::before{
-content:"";
-position:fixed;
-inset:0;
-background:#f6f1e8;
-z-index:-2;
+#overlay .intro-text {
+  font-size: 1.6rem;
+  max-width: 280px;
 }
 
-canvas{
-position:fixed;
-inset:0;
-z-index:-1;
-}
 
-/* ===== OVERLAY ===== */
-#overlay{
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at 50% 40%, rgba(214,192,141,.15), transparent 60%),
-#0e0e0e;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
-cursor:pointer;
-transition:opacity .8s ease;
-}
-
-#overlay.hide{
-opacity:0;
-pointer-events:none;
-}
-
-#overlay img{
-width:160px;
-margin-bottom:28px;
-filter:drop-shadow(0 8px 18px rgba(214,192,141,.25));
-}
-
-#overlay p{
-letter-spacing:6px;
-font-size:11px;
-color:#d6c08d;
-opacity:.8;
-}
 
 /* HERO */
-.hero{
-height:100vh;
-display:grid;
-grid-template-columns:1fr 1fr;
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100dvh; /* 🔥 mejor que 100vh en móviles modernos */
+  overflow: hidden;
 }
 
-.hero::before{
-content:"";
-background:url('FPrincipal.jpg') center/cover no-repeat;
+.hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-.hero::after{
-content:"";
-background:#111;
+
+
+.hero-content {
+  position: absolute;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  padding: 0 20px;
+
+  z-index: 2; /* 👈 arriba del degradado */
+}
+.hero-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%; /* exactamente la mitad */
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.45) 40%,
+    rgba(0, 0, 0, 0.0) 100%
+  );
+
+  z-index: 1;
+  pointer-events: none;
+}
+.mis15 {
+font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 2px 6px rgba(0,0,0,.35);
+}
+/* ================================
+   NOMBRE XV · ULTRA PREMIUM
+================================ */
+
+.nombre {
+  position: relative;
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(64px, 8.5vw, 120px);
+  letter-spacing: .3px;
+  display: inline-block;
+  z-index: 2;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.35),
+    0 12px 40px rgba(0,0,0,.45);
+
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(6px);
+
+  animation: nombreLuxuryReveal 2s cubic-bezier(.22,1,.36,1) forwards;
+  animation-delay: .5s;
 }
 
-.hero-text{
-position:absolute;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
-text-align:center;
-color:white;
+
+/* REVELADO LUJO */
+@keyframes nombreLuxuryReveal {
+
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(.75);
+    filter: blur(14px);
+    letter-spacing: 8px;
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.08);
+    filter: blur(0);
+    letter-spacing: 2px;
+
+    text-shadow:
+      0 0 24px rgba(255,215,160,.9),
+      0 6px 18px rgba(0,0,0,.5);
+  }
+
+  70% {
+    transform: translateY(4px) scale(.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    letter-spacing: 1px;
+    filter: blur(0);
+
+    text-shadow:
+      0 0 14px rgba(255,215,160,.65),
+      0 4px 14px rgba(0,0,0,.45);
+  }
 }
 
-.hero-text h1{
-font-family:'Playfair Display',serif;
-font-size:clamp(42px,6vw,68px);
-letter-spacing:8px;
-color:#F1E7D0;
+/* BRILLO METÁLICO QUE CRUZA */
+.nombre::after {
+  content: "";
+  position: absolute;
+  inset: -12% -25%;
+  background: linear-gradient(
+    105deg,
+    transparent 46%,
+    rgba(255,255,255,.9) 50%,
+    transparent 54%
+  );
+  transform: translateX(-140%) skewX(-18deg);
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+
+  animation: nombreMetalShine 3.8s ease 2.2s forwards;
 }
 
-.hero-text span{
-display:block;
-font-size:22px;
-letter-spacing:6px;
-margin:18px 0;
-color:#d6c08d;
+@keyframes nombreMetalShine {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+    opacity: .9;
+  }
+  100% {
+    transform: translateX(140%) skewX(-18deg);
+    opacity: 0;
+  }
 }
 
-.hero-text .fecha{
-margin-top:18px;
-font-size:15px;
-letter-spacing:4px;
-color:#8a7a5c;
+/* RESPIRACIÓN ELEGANTE CONTINUA */
+.nombre {
+  animation:
+    nombreLuxuryReveal 2.6s cubic-bezier(.19,1,.22,1) forwards,
+    nombreBreath 6s ease-in-out 3.2s infinite;
 }
+
+@keyframes nombreBreath {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-2px) scale(1.015); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+
 
 /* SECCIONES */
-section{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:14px;
+.section {
+  position: relative;
+  z-index: 2;
+
+  max-width: 320px;
+  margin: 0 auto;
+
+  padding: 34px 22px 22px;
+
+  /* GLASS · usando tus valores (ajuste fino) */
+ background: linear-gradient(
+  135deg,
+  rgba(255,255,255,0.04),
+  rgba(255,255,255,0.01)
+);
+
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+  
+
+  /* BORDE DORADO · mismo tono, mejor lectura */
+  border: 1px solid rgba(246, 211, 101, 0.55);
+
+  /* HALO + PROFUNDIDAD (sin exagerar) */
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.45),
+    0 0 0 1px rgba(246,211,101,.35),
+    0 20px 55px rgba(246,211,101,.35);
+
+  border-radius: 26px;
+
+  /* ANIMACIÓN (no tocar para transparencia) */
+  opacity: 0;
+  transform: translateY(40px) scale(.98);
+  transition: all 1s ease;
 }
 
-section::after{
-content:"";
-display:block;
-width:120px;
-height:1px;
-margin:90px auto 0;
-background:linear-gradient(to right, transparent, #d6c08d, transparent);
-opacity:.6;
+.section.show {
+  opacity: 1;
+  transform: none;
+}
+.section h2 { font-size: 2rem; margin-bottom: 12px; }
+.section p { font-size: 1.25rem; }
+
+/* SEPARADORES CORREGIDOS */
+.sep {
+  height: 3px;
+  width: 160px;
+  margin: 36px auto;
+  background: linear-gradient(90deg, transparent, #f6d365, #fff1a8, #d4af37, #f6d365, transparent);
+  border-radius: 6px;
+  box-shadow: 0 0 18px rgba(255,215,160,.7);
+  position: relative;
+  z-index: 2;
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: none;
+}
+
+/* FOTO HISTORIA */
+.photo img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 18px;
+  margin: 12px auto;
 }
 
 /* GALERÍA */
-.collage{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-.collage img{
-width:100%;
-height:100%;
-object-fit:cover;
-cursor:pointer;
-transition:.6s;
+.gallery .big { grid-column: span 2; }
+
+.gallery img {
+  width: 100%;
+  height: auto;           /* 🔥 mantiene proporción real */
+  display: block;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform .5s ease, box-shadow .5s ease;
 }
 
-.collage img:hover{transform:scale(1.03)}
-.vertical{grid-row:span 2;height:420px}
-.horizontal{grid-column:span 2;height:240px}
 
-/* LIGHTBOX */
-#lightbox{
-position:fixed;
-inset:0;
-background:#000;
-display:none;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 18px 40px rgba(0,0,0,.5);
 }
 
-#lightbox img{
-max-width:90%;
-max-height:70vh;
-margin-bottom:20px;
+/* BOTONES DORADO PREMIUM */
+.btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  background: var(--gold-btn);
+
+  color: #ffffff;
+
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 6px rgba(255,255,255,.7),
+    0 0 14px rgba(255,215,160,.6);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.6),
+    0 12px 32px rgba(212,175,55,.6);
+
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
-.thumb-bar{
-display:flex;
-gap:10px;
-overflow-x:auto;
-padding:14px;
-width:100%;
-justify-content:center;
-background:rgba(0,0,0,.6);
+.btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.7), 0 18px 45px rgba(212,175,55,.85);
 }
 
-.thumb-bar img{
-height:60px;
-opacity:.5;
-cursor:pointer;
-transition:.3s;
+/* CUENTA REGRESIVA */
+#countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 6px auto 0;
+  flex-wrap: nowrap;
+  max-width: 90%;
 }
 
-.thumb-bar img.active{
-opacity:1;
-transform:scale(1.05);
+
+
+/* AJUSTE RESPONSIVE CUENTA REGRESIVA */
+.count-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-/* BOTONES */
-button,.btn{
-padding:14px 28px;
-border:1px solid #cdb892;
-background:transparent;
-color:#7a6a4f;
-letter-spacing:2px;
-font-size:12px;
-cursor:pointer;
+.count-box strong {
+  font-size: 2rem;
+  display: block;
+  line-height: 1.1;
+  font-weight: 700;
 }
 
-button:hover,.btn:hover{
-background:#cdb892;
-color:white;
+
+#countdown span {
+  font-size: .7rem;
+  white-space: nowrap;
 }
 
-/* COUNTDOWN */
-#count{
-font-size:30px;
-letter-spacing:4px;
+
+@media (max-width: 420px) {
+  .count-box {
+    min-width: 60px;
+    padding: 6px 8px;
+  }
+
+.count-box strong {
+  font-size: 1.6rem;
+}  
 }
 
-#count span{
-font-size:26px;
+/* MAPA */
+.map {
+  margin: 14px 0;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-/* FORM */
-input,select{
-padding:12px;
-margin:8px;
-width:260px;
+/* UTILIDADES */
+.utilities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 300px;
+  margin: 24px auto 6px;
+}
+.util {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.22),
+    rgba(255,255,255,.08)
+  );
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border-radius: 16px;
+  padding: 14px 12px;
+
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .5px;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.35),
+    0 10px 28px rgba(0,0,0,.45);
+
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
 
-/* FOOTER */
-footer{
-padding:70px 20px;
-font-size:13px;
-color:#aaa;
+.util:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.45),
+    0 18px 45px rgba(0,0,0,.6);
 }
 
-.hero-text h1{
-opacity:0;
-transform:translateY(40px);
-transition:1.6s cubic-bezier(.2,.8,.2,1);
+
+/* DIGITAL INVITA DORADO PREMIUM */
+.brand {
+  display: block;
+  margin-top: 6px;
+  font-size: .9rem;
+  letter-spacing: 2px;
+  background: var(--gold-btn);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { filter: drop-shadow(0 0 6px rgba(255,215,160,.3)); }
+  to { filter: drop-shadow(0 0 16px rgba(255,215,160,.9)); }
 }
 
-.hero-text.show h1{
-opacity:1;
-transform:translateY(0);
+.footer-love {
+  margin-top: 34px;
 }
 
-.hero-text.show h1:nth-child(1){transition-delay:.6s}
-.hero-text.show span{transition-delay:1.2s}
-.hero-text.show h1:nth-child(3){transition-delay:1.8s}
-.hero-text.show .fecha{transition-delay:2.2s}
-
-.hero-text span,
-.hero-text .fecha{
-opacity:0;
-transform:translateY(30px);
-transition:1.4s ease;
+#audio { display:none; }
+  /* ===== BOTÓN VOLVER ARRIBA ESTILO APPLE ===== */
+#toTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 18px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,.4);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(.9);
+  transition: all .3s ease;
+  z-index: 9999;
 }
 
-.hero-text.show span,
-.hero-text.show .fecha{
-opacity:1;
-transform:translateY(0);
+#toTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
-.hero-text h1{
-background:linear-gradient(120deg,#fff,#f1e7d0,#d6c08d,#fff);
-background-size:200% 100%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-animation:goldShine 6s linear infinite;
+#toTopBtn:hover {
+  transform: scale(1.08);
 }
 
-@keyframes goldShine{
-0%{background-position:-200% 0}
-100%{background-position:200% 0}
+.hero-content {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  text-align: center;
 }
+.hero-content * {
+  text-align: center;
+}
+
+/* ===== BOTÓN MÚSICA (CLON DE VOLVER ARRIBA) ===== */
+#musicBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 18px; /* lado contrario */
+  right: auto;
+
+  
+  width: 46px;
+  height: 46px;
+
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  
+  
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,.4);
+  opacity: 0;              /* oculto al inicio */
+  pointer-events: none;    /* no clickeable */
+  transform: scale(.8);
+  transition: all .3s ease;
+  z-index: 9999;
+}
+  #musicBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* ICONO PAUSA / PLAY PREMIUM */
+/* ===== ICONO BASE (PAUSA) ===== */
+#musicBtn::before,
+#musicBtn::after {
+  content: "";
+  position: absolute;
+  width: 2.4px;
+  height: 15px;
+  background: rgba(255,255,255,.9);
+  border-radius: 2px;
+  transition: all .35s ease;
+}
+
+/* barra izquierda */
+#musicBtn::before {
+  transform: translateX(-3.5px);
+}
+
+/* barra derecha */
+#musicBtn::after {
+  transform: translateX(3.5px);
+}
+
+
+/* ===== ESTADO PLAY ===== */
+#musicBtn.play::before {
+  width: 0;
+  height: 0;
+border-left: 11px solid rgba(255,255,255,.9);
+border-top: 7px solid transparent;
+border-bottom: 7px solid transparent;
+
+  background: none;
+  border-radius: 0;
+  transform: translateX(2px);
+}
+
+/* ocultar la segunda barra COMPLETAMENTE */
+#musicBtn.play::after {
+  opacity: 0;
+  transform: translateX(8px);
+}
+
+
+/* =====  RESPONSIVE ===== */
+
+
+.count-box {
+  padding: 6px 8px;
+  min-width: 58px;
+}
+
+.count-box strong {
+  font-size: 2.4rem;
+}
+/* ===== LIGHTBOX POPUP GALERÍA ===== */
+
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(8px);
+
+  display: none;
+
+  
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: fadeIn .3s ease;
+}
+#lightbox.show {
+  display: flex;
+}
+  
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(8px);
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10000;
+}
+
+#lightbox.show {
+  display: flex;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+
+
+/* Animaciones */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+  /* ===== BOTÓN CERRAR LIGHTBOX ESTILO APPLE ===== */
+
+#closeLightbox {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,.4);
+  transition: transform .25s ease, background .25s ease;
+  z-index: 10001;
+}
+
+#closeLightbox:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,.3);
+}
+/* ================================
+    ESTILO APPLE · XV AÑOS
+   ================================ */
+
+
+
+/* Caja individual */
+.count-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 12px 14px;
+  min-width: 74px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.25),
+    0 12px 30px rgba(0,0,0,.35);
+
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+/* Hover sutil (Apple-like) */
+.count-box:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.35),
+    0 18px 45px rgba(0,0,0,.45);
+}
+
+/* Número */
+.count-box strong {
+  font-size: 2.7rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -1px;
+
+  background: var(--gold-btn);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter: drop-shadow(0 6px 14px rgba(255,215,160,.6));
+}
+
+/* Texto (DÍAS, HORAS…) */
+.count-box span {
+  margin-top: 6px;
+  font-size: .65rem;
+  letter-spacing: 2px;
+  opacity: .75;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 420px) {
+  
+
+  .count-box {
+    min-width: 60px;
+    padding: 10px 10px;
+  }
+
+  .count-box strong {
+    font-size: 2rem;
+  }
+
+  .count-box span {
+    font-size: .6rem;
+  }
+}
+/* ===== OSCURECER FOTO HERO ===== */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.25),
+    transparent 60%
+  );
+  z-index: 1;
+}
+
+
+
+.hero img {
+  position: relative;
+  z-index: 0;
+}
+
+.hero-content {
+  position: absolute;
+  z-index: 2;
+}
+/* ===== FECHA DE EVENTO ===== */
+.fecha-evento {
+  margin-top: 6px;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-transform: uppercase;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0,0,0,.4)
+}
+.footer-section {
+  padding-bottom: 90px; /* espacio para que no tape el botón */
+}
+/* Imagen código de vestimenta */
+.dresscode-img {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.dresscode-img img {
+  width: 75%;
+  max-width: 220px;
+  height: auto;
+  display: block;
+  margin: 10px auto 0 auto;
+  border-radius: 18px;
+}
+
+@keyframes goldFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulseSoft {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* ================================
+   FOOTER · FIRMA COMERCIAL PREMIUM
+================================ */
+
+.marca-footer {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px 60px;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  opacity: 0.75;
+}
+
+/* Línea dorada decorativa */
+.marca-footer::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212,175,55,.9),
+    rgba(255,241,168,1),
+    rgba(212,175,55,.9),
+    transparent
+  );
+  box-shadow: 0 0 18px rgba(212,175,55,.5);
+}
+
+/* Texto superior */
+.marca-footer p {
+  margin: 0;
+  margin-bottom: 12px;
+  opacity: .9;
+}
+
+/* Marca principal */
+.marca-footer a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+
+  background: var(--gold-btn);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  transition: all .4s ease;
+}
+
+/* Subtexto comercial */
+.marca-sub {
+  display: block;
+  font-size: .65rem;
+  letter-spacing: 1px;
+  margin-top: 6px;
+  opacity: .8;
+}
+
+/* Hover elegante */
+.marca-footer a:hover {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 0 12px rgba(212,175,55,.7));
+}
+
+.marca-pregunta {
+  margin-top: 18px;
+  font-size: .85rem;
+  letter-spacing: 1px;
+  opacity: .9;
+}
+
+.marca-cta {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 12px 26px;
+  border-radius: 40px;
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 2px;
+
+  background: var(--gold-btn);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  border: 1px solid rgba(212,175,55,.5);
+  transition: all .35s ease;
+}
+
+.marca-cta:hover {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 0 10px rgba(212,175,55,.7));
+}
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.rsvp-form input,
+.rsvp-form select {
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  outline: none;
+}
+.rsvp-card {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  text-align: left;
+}
+
+.field label {
+  font-size: .75rem;
+  letter-spacing: 1px;
+  opacity: .7;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: .9rem;
+  outline: none;
+  transition: all .3s ease;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: rgba(212,175,55,.6);
+  box-shadow: 0 0 12px rgba(212,175,55,.4);
+}
+
+/* ================================
+   RSVP · ESTILO GLASS iPHONE
+================================ */
+
+.rsvp-card {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Campos */
+.field input,
+.field select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: #fff;
+  font-size: .95rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: all .3s ease;
+}
+
+/* Focus elegante */
+.field input:focus,
+.field select:focus {
+  border-color: rgba(212,175,55,.7);
+  box-shadow: 0 0 14px rgba(212,175,55,.45);
+}
+
+/* BOTONES EN UNA SOLA LÍNEA */
+.rsvp-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* Botones glass */
+.rsvp-buttons button {
+  flex: 1;
+  padding: 10px 8px;
+  font-size: .75rem;
+  letter-spacing: .5px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,.25);
+
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  color: #fff;
+  font-weight: 500;
+
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.25),
+    0 8px 20px rgba(0,0,0,.35);
+
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+/* Hover estilo Apple */
+.rsvp-buttons button:hover {
+  transform: translateY(-2px) scale(1.04);
+  background: rgba(255,255,255,.18);
+}
+
+/* Botón NO ASISTE más suave */
+.rsvp-buttons .btn-soft {
+  background: rgba(255,255,255,.08);
+}
+
+/* Latido elegante para Digital Invita */
+@keyframes elegantPulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.04); opacity: 0.92; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+.digital-invita {
+  display: inline-block;
+  animation: elegantPulse 2.8s ease-in-out infinite;
+  text-shadow: 
+    0 0 6px rgba(212, 175, 55, 0.4),
+    0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+/* ===== BOTÓN SELLO CERA REAL ===== */
+.wax-btn {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+
+/* imagen del sello */
+.wax-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+
+  filter:
+  drop-shadow(0 20px 35px rgba(0,0,0,.45))
+  drop-shadow(0 6px 8px rgba(0,0,0,.35));
+
+  transition: transform .35s ease, filter .35s ease;
+
+  /* respiración elegante */
+ animation: waxBreath 6s cubic-bezier(.45,.05,.55,.95) infinite;
+
+}
+
+/* hover lujo */
+.wax-btn:hover img {
+  transform: scale(1.08) rotate(-2deg) translateY(-4px);
+  filter:
+    drop-shadow(0 30px 45px rgba(0,0,0,.55))
+    drop-shadow(0 10px 14px rgba(0,0,0,.35));
+}
+
+
+
+/* ANIMACIÓN DEL BRILLO */
+@keyframes waxShine {
+  from { transform: translateX(-140%); }
+  to   { transform: translateX(140%); }
+}
+
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  4% {
+    opacity: 1;
+  }
+
+  10% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+}
+
+
+/* click */
+.wax-btn:active img {
+  transform: scale(.94) translateY(3px);
+  filter:
+    drop-shadow(0 6px 10px rgba(0,0,0,.45));
+}
+
+
+/* ENTRADA EN OVERLAY */
+#overlay .wax-btn {
+  opacity: 0;
+  transform: scale(.7) rotate(-8deg);
+  animation: waxIn 1.2s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+/* TEXTO MICRO DEBAJO */
+.wax-caption {
+  margin-top: 14px;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: .75;
+
+  background: linear-gradient(
+    90deg,
+    #fff6d5,
+    #f7d774,
+    #d4a93a,
+    #fff6d5
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: waxTextFade 2.8s ease-in-out infinite;
+}
+
+/* ===== ANIMACIONES ===== */
+
+@keyframes waxIn {
+  0% {
+    opacity: 0;
+    transform: scale(.6) rotate(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes waxBreath {
+  0%   { transform: translateY(0px) scale(1); }
+  25%  { transform: translateY(-2px) scale(1.01); }
+  50%  { transform: translateY(0px) scale(1.015); }
+  75%  { transform: translateY(-1px) scale(1.005); }
+  100% { transform: translateY(0px) scale(1); }
+}
+
+
+@keyframes waxTextFade {
+  0%   { opacity: .6; transform: translateY(0); }
+  50%  { opacity: 1; transform: translateY(2px); }
+  100% { opacity: .6; transform: translateY(0); }
+}
+
+
+/* ===== MINIATURAS LIGHTBOX ===== */
+
+.lightbox-content {
+  width: min(92vw, 520px);
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+/* CONTENEDOR IMAGEN PRINCIPAL */
+.lightbox-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+/* MINIATURAS FIJAS ABAJO */
+#thumbs {
+  height: 90px;
+  flex-shrink: 0;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.lightbox-main {
+  flex: 1;                   /* 🔥 ocupa todo el espacio disponible */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;       /* 🔥 no corta */
+}
+
+
+/* contenedor miniaturas */
+#thumbs {
+  height: 80px;              /* 🔒 altura fija */
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;            /* 🔥 no se reduce */
+  padding: 8px 0;
+}
+
+
+
+/* ocultar scrollbar */
+#thumbs::-webkit-scrollbar{
+  display:none;
+}
+
+
+/* cada miniatura */
+#thumbs img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+  opacity: .6;
+  transition: all .3s ease;
+}
+
+#thumbs img.active {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+
+
+/* efecto hover */
+#thumbs img:hover{
+  transform:scale(1.08);
+  opacity:1;
+}
+
+/* miniatura activa */
+#thumbs img.active{
+  opacity:1;
+  transform:scale(1.1);
+  border-color:#d4af37;
+  box-shadow:0 8px 20px rgba(212,175,55,0.35);
+}
+
+#lightbox {
+  touch-action: pan-y;
+}
+
+body.locked {
+  overflow: hidden;
+}
+
+/* ================================
+   HERO · MIS XV ESTILO ELEGANTE
+================================ */
+
+/* MIS XV */
+.mis-xv {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: #ffffff;
+
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+
+/* Líneas decorativas estilo fino (igual lenguaje que fecha) */
+.mis-xv::before,
+.mis-xv::after {
+  content: "";
+  display: block;
+  width: 55px;              /* más cortas = más elegante */
+  height: 1px;
+  margin: 10px auto;        /* menos separación */
+
+  background: rgba(255,255,255,0.55); /* dorado suave sin brillo fuerte */
+}
+/* FECHA */
+.fecha-xv {
+  display: inline-block;            /* 👈 evita que se estire */
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;                  /* un poco más pequeño */
+  letter-spacing: 6px;              /* menos separación = más fino */
+  text-transform: uppercase;
+  color: #ffffff;
+
+  padding: 10px 22px;               /* espacio interno elegante */
+
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
+
+  position: relative;
+}
+  .fecha-xv::before,
+.fecha-xv::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 55px;                      /* largo de las líneas */
+  height: 1px;
+  background: rgba(255,255,255,0.55);
+}
+
+.fecha-xv::before {
+  right: 100%;
+  margin-right: 14px;
+}
+
+.fecha-xv::after {
+  left: 100%;
+  margin-left: 14px;
+}
+
+  
 </style>
 </head>
 
-<body class="lock">
-
-<!-- OVERLAY -->
-<div id="overlay">
-<img src="sello_cera.png">
-<p>TOCA PARA ABRIR INVITACIÓN</p>
-</div>
+<body class="locked">
 
 <canvas id="particles"></canvas>
 
-<audio id="music" src="cancion.mp3" loop></audio>
+<div id="overlay">
+  
+<button class="wax-btn" id="openBtn">
+  <img src="sello_cera.png" alt="Abrir invitación">
+</button>
 
-<div class="hero">
-<div class="hero-text">
-<h1>Valeria</h1>
-<span>&</span>
-<h1>Lucas</h1>
-<p class="fecha">20 · JULIO · 2026</p>
+<div class="wax-caption">Tocar para abrir</div>
+
+
+
 </div>
+
+<audio id="audio" loop preload="auto">
+  <source src="cancio.mp3.mp3" type="audio/mpeg">
+</audio>
+
+
+
+<section class="hero">
+  <img src="FPrincipal.jpg">
+ <div class="hero-overlay"></div>
+  
+  <div class="hero-content">
+<div class="mis-xv">Mis XV</div>
+
+<div class="nombre" id="nombre" data-text="Sofía">
+  Sofía
 </div>
 
-<section>
-<h2>Nuestra Historia</h2>
-<img src="FHistoria.jpg" style="width:100%;border-radius:10px;">
+<div class="fecha-xv" id="fechaEvento"></div>
+
+
+  </div>
 </section>
 
-<section>
-<h2>Ceremonia</h2>
-<p>5:00 PM</p>
-<p>Parroquia San Miguel</p>
-<a class="btn">CÓMO LLEGAR</a>
+
+  
+<div class="sep"></div>
+
+<section class="section">
+  <h2>Mi historia</h2>
+  <p>Hoy celebro no solo mis 15 años, sino cada sonrisa que iluminó mi camino, cada aprendizaje que fortaleció mi corazón y cada sueño que, con amor y esperanza, me ha traído hasta este momento tan especial de mi vida.</p>
+  <div class="photo"><img src="FHistoria.jpg"></div>
+  <p>Aquí termina un capítulo lleno de recuerdos que atesoraré por siempre… y comienza uno nuevo, donde la ilusión, la luz y los sueños por cumplir marcan el inicio de todo lo que está por venir.</p>
 </section>
 
-<section>
-<h2>Recepción</h2>
-<p>7:30 PM</p>
-<p>Hacienda Los Laureles</p>
-<a class="btn">CÓMO LLEGAR</a>
+<div class="sep"></div>
+
+<section class="section">
+  <h2>Mis papás</h2>
+  <p style="font-family:'Great Vibes',cursive;font-size:2.2rem;">
+    María González<br>&<br>Carlos Montes
+  </p>
 </section>
 
-<section id="countdown">
-<h2>Cuenta Regresiva</h2>
-<div id="count"></div>
+<div class="sep"></div>
+
+<section class="section">
+  <h2>Mis padrinos</h2>
+  <p style="font-family:'Great Vibes',cursive;font-size:2.2rem;">
+    Laura Pérez<br>&<br>José Hernández
+  </p>
 </section>
 
-<section>
-<h2>Galería</h2>
-<div class="collage">
-<img src="G1.jpg" class="vertical">
-<img src="G3.jpg" class="horizontal">
-<img src="G2.jpg">
-<img src="G4.jpg">
-<img src="G5.jpg" class="vertical">
-<img src="G6.jpg" class="horizontal">
+<div class="sep"></div>
+
+<section class="section">
+  <h2>Ceremonia</h2>
+  <p>18:00 hrs</p>
+  <p>Parroquia Ejemplo</p>
+  <div class="map">
+    <iframe src="https://maps.google.com/maps?q=CDMX&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="200" style="border:0;"></iframe>
+  </div>
+  <a class="btn" href="https://maps.google.com" target="_blank">Cómo llegar</a>
+</section>
+
+<div class="sep"></div>
+
+
+  
+<section class="section">
+  <h2>Recepción</h2>
+  <p>20:00 hrs</p>
+  <p>Salón Ejemplo</p>
+  <div class="map">
+    <iframe src="https://www.google.com/maps?q=CDMX&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="200" style="border:0;"></iframe>
+  </div>
+  <a class="btn" href="https://maps.google.com" target="_blank">Cómo llegar</a>
+</section>
+
+<div class="sep"></div>
+
+  
+<section class="section" id="countdown-section">
+  <h2>Faltan pocos días para este gran día</h2>
+  <div id="countdown"></div>
+</section>
+<div class="sep"></div>
+  
+<section class="section">
+  <h2>Galería</h2>
+  <div class="gallery">
+    <img src="G1.jpg">
+    <img src="G2.jpg">
+    <img class="big" src="G3.jpg">
+    <img class="big" src="G4.jpg">
+    <img src="G5.jpg">
+    <img src="G6.jpg">
+  </div>
+</section>
+
+<div class="sep"></div>
+
+
+  <section class="section">
+  <h2>Código de vestimenta</h2>
+  <p>Divinas y guapos</p>
+
+  <div class="dresscode-img">
+    <img src="vestimenta.png" alt="Código de vestimenta">
+  </div>
+</section>
+<div class="sep"></div>
+  
+<section class="section">
+  <h2>Confirma tu presencia</h2>
+
+  <div class="rsvp-card">
+
+    <div class="field">
+      <label>Tu nombre</label>
+      <input type="text" id="guestName" placeholder="Escríbelo aquí">
+    </div>
+
+    <div class="field">
+  <label>¿Cuántas personas asistirán?</label>
+  <select id="guestCount" data-pases="6">
+    <option value="">Selecciona una opción</option>
+  </select>
 </div>
+
+
+    <div class="rsvp-buttons">
+      <button class="btn" onclick="sendConfirmation(true)">
+        Confirmar asistencia ✨
+      </button>
+
+      <button class="btn btn-soft" onclick="sendConfirmation(false)">
+        No podré asistir
+      </button>
+    </div>
+
+  </div>
 </section>
 
-<footer>
-<p>Invitación creada con amor digital</p>
-</footer>
+<div class="sep"></div>
+  
+  
+<section class="section">
+  <h2>Mesa de regalos</h2>
+  <p>Liverpool – Evento #123456</p>
+  <p>Transferencia: 1234 5678 9012</p>
+</section>
 
+<div class="sep"></div>
+
+
+
+
+
+<section class="section">
+  <h2>Agenda este momento</h2>
+
+  <a class="btn" href="#" onclick="addToCalendar()">Agregar al calendario</a>
+  <br>
+  <a class="btn" href="javascript:void(0);" onclick="scrollToCountdown()">Ver cuenta regresiva</a>
+</section>
+
+
+<div class="marca-footer">
+  <p>Invitación creada con amor digital</p>
+
+  <a class="digital-invita"
+   href="https://www.facebook.com/profile.php?id=61587804296779&locale=es_LA"
+   target="_blank">
+  DIGITAL INVITA
+</a>
+
+  <p class="marca-pregunta">
+    ¿Tienes tu evento y no tienes invitaciones?
+  </p>
+
+  <a class="marca-cta" 
+     href="https://wa.me/525550591264" 
+     target="_blank">
+     Da click aquí
+  </a>
+</div>
+
+
+  
 <div id="lightbox">
-<span id="close">✕</span>
-<img>
-<div class="thumb-bar"></div>
+
+  <button id="closeLightbox">×</button>
+
+<div class="lightbox-content">
+
+  <div class="lightbox-main">
+    <img id="lightbox-img" class="lightbox-img">
+  </div>
+
+  <div id="thumbs"></div>
+
 </div>
 
-<script>
-const overlay = document.getElementById("overlay");
-const music = document.getElementById("music");
 
-/* BLOQUEAR SCROLL INICIAL */
-window.scrollTo(0,0);
+</div>
 
-/* ABRIR */
-overlay.addEventListener("click",()=>{
 
-overlay.classList.add("hide");
-document.body.classList.remove("lock");
-window.scrollTo(0,0);
 
-music.currentTime=0;
-music.play().catch(()=>{});
+<!-- BOTÓN SUBIR ARRIBA -->
+<button id="toTopBtn">↑</button>
+<button id="musicBtn"></button>
 
-// activar animación nombres
-setTimeout(()=>{
-document.querySelector(".hero-text").classList.add("show");
-},400);
+ <script>
+   console.log("JS cargado");
 
-});
+// 1. REINICIO DE SCROLL
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
 
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+
+ let TOTAL_PARTICLES = 160;
+
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+
+
+
+   console.log(canvas, ctx);
+
+
+let w, h;
+let particles = [];
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = document.documentElement.clientHeight;
+
+  TOTAL_PARTICLES = w < 768 ? 80 : 160;
+
+  particles = [];
+  for (let i = 0; i < TOTAL_PARTICLES; i++) {
+    particles.push(createParticle());
+  }
 }
+
+
+
+
+let resizeTimeout;
+
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(resize, 150);
+});
 resize();
-window.addEventListener("resize",resize);
 
-let particles=[];
-
-for(let i=0;i<70;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*1.8+.4,
-speed:Math.random()*0.3+0.05,
-alpha:Math.random()*0.6+0.2,
-drift:(Math.random()-.5)*0.3
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-p.y+=p.speed;
-p.x+=p.drift;
-
-if(p.y>canvas.height)p.y=-10;
-if(p.x>canvas.width||p.x<0)p.x=Math.random()*canvas.width;
-
-const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);
-g.addColorStop(0,`rgba(214,192,141,${p.alpha})`);
-g.addColorStop(.4,`rgba(214,192,141,${p.alpha*.4})`);
-g.addColorStop(1,"rgba(214,192,141,0)");
-
-ctx.beginPath();
-ctx.fillStyle=g;
-ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2);
-ctx.fill();
-});
-
-requestAnimationFrame(animate);
-}
 animate();
+
+// 🔑 Frame inicial para Android
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+function createParticle() {
+
+  const speed = w < 768 ? 0.25 : 0.4;
+
+  return {
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 2.2 + 0.8,
+    vx: (Math.random() - 0.5) * speed,
+    vy: (Math.random() - 0.5) * speed,
+    baseAlpha: Math.random() * 0.4 + 0.2,
+    alpha: 0,
+    sparkle: Math.random() < 0.08,
+    sparklePhase: Math.random() * Math.PI * 2
+  };
+}
+
+
+
    
-/* COUNTDOWN */
-const count=document.getElementById("count");
-const target=new Date("2026-07-20T00:00:00").getTime();
+let animationStarted = false;
 
-function updateCountdown(){
-const now=new Date().getTime();
-const diff=target-now;
+   
+const toTopBtn = document.getElementById('toTopBtn');
 
-if(diff<=0){
-count.innerHTML="¡HOY ES EL GRAN DÍA!";
-return;
-}
+// LIGHTBOX
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const thumbs = document.getElementById('thumbs');
+const galleryImages = Array.from(document.querySelectorAll('.gallery img'));
+const closeLightbox = document.getElementById('closeLightbox');
 
-const d=Math.floor(diff/(1000*60*60*24));
-const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-const m=Math.floor((diff%(1000*60*60))/(1000*60));
-const s=Math.floor((diff%(1000*60))/1000);
 
-count.innerHTML=`<span>${d}D</span> :
-<span>${h}H</span> :
-<span>${m}M</span> :
-<span>${s}S</span>`;
-}
+let currentIndex = 0;
 
-setInterval(updateCountdown,1000);
-updateCountdown();
-
-/* LIGHTBOX */
-const images=document.querySelectorAll(".collage img");
-const lightbox=document.getElementById("lightbox");
-const lightboxImg=lightbox.querySelector("img");
-const thumbBar=document.querySelector(".thumb-bar");
-
-images.forEach((img,i)=>{
-const t=document.createElement("img");
-t.src=img.src;
-thumbBar.appendChild(t);
-
-img.onclick=()=>openGallery(i);
-t.onclick=()=>showImage(i);
+   galleryImages.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    currentIndex = index;
+    openLightbox();
+  });
 });
 
-function openGallery(i){
-lightbox.style.display="flex";
-document.body.classList.add("lock");
-showImage(i);
-}
-
-function showImage(i){
-lightboxImg.src=images[i].src;
-thumbBar.querySelectorAll("img").forEach(el=>el.classList.remove("active"));
-thumbBar.children[i].classList.add("active");
-}
-
-document.getElementById("close").onclick=()=>{
-lightbox.style.display="none";
-document.body.classList.remove("lock");
-};
-
    
+function nextImage() {
+  console.log("NEXT DISPARADO");
+  currentIndex = (currentIndex + 1) % galleryImages.length;
+  animateImageChange();
+}
+
+
+function prevImage() {
+  currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+  animateImageChange();
+}
+   
+let isAnimating = false;
+
+function animateImageChange() {
+
+  if (isAnimating) return;
+  isAnimating = true;
+
+  lightboxImg.style.transform = "scale(.92)";
+  lightboxImg.style.opacity = "0";
+
+  setTimeout(() => {
+    updateLightbox();
+
+    lightboxImg.style.transform = "scale(1)";
+    lightboxImg.style.opacity = "1";
+
+    setTimeout(() => {
+      isAnimating = false;
+    }, 120);
+
+  }, 120);
+}
+
+
+
+function openLightbox() {
+  lightbox.classList.add('show');
+  updateLightbox();
+  renderThumbs();
+  document.body.style.overflow = 'hidden';
+}
+
+
+// Actualizar imagen grande
+function updateLightbox() {
+  lightboxImg.src = galleryImages[currentIndex].src;
+  document.querySelectorAll('#thumbs img').forEach((t, i) => {
+    t.classList.toggle('active', i === currentIndex);
+  });
+}
+
+// Renderizar miniaturas
+function renderThumbs() {
+  thumbs.innerHTML = '';
+  galleryImages.forEach((img, i) => {
+    const t = document.createElement('img');
+    t.src = img.src;
+    if (i === currentIndex) t.classList.add('active');
+t.addEventListener('click', () => {
+  currentIndex = i;
+  animateImageChange();
+});
+
+
+    thumbs.appendChild(t);
+  });
+}
+
+
+
+  
+function showImage(index){
+  currentIndex = index;
+
+  lightboxImg.style.transform = "scale(.92)";
+  lightboxImg.style.opacity = "0";
+
+  setTimeout(() => {
+    lightboxImg.src = galleryImages[currentIndex].src;
+
+    document.querySelectorAll('#thumbs img').forEach((t, i) => {
+      t.classList.toggle('active', i === currentIndex);
+    });
+
+    // centra miniatura activa
+    const activeThumb = document.querySelector('#thumbs img.active');
+    if (activeThumb) {
+      activeThumb.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest"
+      });
+    }
+
+    lightboxImg.style.transform = "scale(1)";
+    lightboxImg.style.opacity = "1";
+  }, 120);
+}
+
+
+
+function closeGallery() {
+  lightboxImg.style.transform = "scale(.92)";
+  lightboxImg.style.opacity = "0";
+
+  setTimeout(() => {
+    lightbox.classList.remove('show');
+    document.body.style.overflow = 'auto';
+  }, 180);
+}
+
+closeLightbox.addEventListener('click', closeGallery);
+
+
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeGallery();
+});
+
+
+
+
+
+// --- SWIPE DEFINITIVO SIN DOBLE DISPARO ---
+let startX = 0;
+let startY = 0;
+let isSwiping = false;
+
+lightbox.addEventListener("touchstart", function(e) {
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+  isSwiping = true;
+});
+
+lightbox.addEventListener("touchend", function(e) {
+  if (!isSwiping) return;
+
+  let endX = e.changedTouches[0].clientX;
+  let endY = e.changedTouches[0].clientY;
+
+  let diffX = startX - endX;
+  let diffY = startY - endY;
+
+  // Solo swipe horizontal real
+  if (Math.abs(diffX) > 60 && Math.abs(diffX) > Math.abs(diffY)) {
+    if (diffX > 0) {
+      nextImage();
+    } else {
+      prevImage();
+    }
+  }
+
+  isSwiping = false;
+});
+
+
+
+
+
+
+  window.addEventListener('scroll', () => {
+
+  const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollActual = window.scrollY;
+  const porcentaje = (scrollActual / scrollTotal) * 100;
+
+  const marca = document.querySelector('.marca-footer');
+  const marcaTop = marca.offsetTop;
+
+  const estaAntesDeMarca = scrollActual + window.innerHeight < marcaTop;
+
+  if (porcentaje > 40 && estaAntesDeMarca) {
+    toTopBtn.classList.add('show');
+  } else {
+    toTopBtn.classList.remove('show');
+  }
+
+});
+
+toTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+
+
+   function animate() {
+  ctx.clearRect(0, 0, w, h);
+
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.sparkle) {
+      p.sparklePhase += 0.03;
+      p.alpha = p.baseAlpha + Math.sin(p.sparklePhase) * 0.25;
+    } else {
+      p.alpha = p.baseAlpha;
+    }
+
+    if (p.x < 0 || p.x > w) p.vx *= -1;
+    if (p.y < 0 || p.y > h) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,215,160,${p.alpha})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animate);
+}
+
+
+// --- Resto de funciones (Countdown, Lightbox, etc.) iguales ---
+// ... (Aquí iría tu código de galería y fechas que ya tienes)
+   // ================================
+// CUENTA REGRESIVA · APPLE XV
+// ================================
+
+// ⚠️ CAMBIA ESTA FECHA
+const EVENT_DATE = new Date("2026-03-11T03:33:00"); // YYYY-MM-DDTHH:MM
+const fechaTexto = document.getElementById("fechaEvento");
+
+if (fechaTexto) {
+  const opciones = { day: 'numeric', month: 'long', year: 'numeric' };
+  fechaTexto.textContent = EVENT_DATE.toLocaleDateString('es-MX', opciones);
+}
+
+const countdownEl = document.getElementById("countdown");
+
+function updateCountdown() {
+  if (!countdownEl) return;
+
+  const now = new Date();
+  const diff = EVENT_DATE - now;
+
+  if (diff <= 0) {
+    countdownEl.innerHTML = `
+      <div class="count-box">
+        <strong>00</strong>
+        <span>DÍAS</span>
+      </div>
+      <div class="count-box">
+        <strong>00</strong>
+        <span>HORAS</span>
+      </div>
+      <div class="count-box">
+        <strong>00</strong>
+        <span>MIN</span>
+      </div>
+      <div class="count-box">
+        <strong>00</strong>
+        <span>SEG</span>
+      </div>
+    `;
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  countdownEl.innerHTML = `
+    <div class="count-box">
+      <strong>${days}</strong>
+      <span>DÍAS</span>
+    </div>
+    <div class="count-box">
+      <strong>${hours.toString().padStart(2, "0")}</strong>
+      <span>HORAS</span>
+    </div>
+    <div class="count-box">
+      <strong>${minutes.toString().padStart(2, "0")}</strong>
+      <span>MIN</span>
+    </div>
+    <div class="count-box">
+      <strong>${seconds.toString().padStart(2, "0")}</strong>
+      <span>SEG</span>
+    </div>
+  `;
+}
+
+// Iniciar contador
+updateCountdown();
+setInterval(updateCountdown, 1000);
+function scrollToCountdown() {
+  const section = document.getElementById("countdown-section");
+  if (!section) return;
+
+  const y = section.offsetTop - (window.innerHeight / 2) + (section.offsetHeight / 2);
+
+  window.scrollTo({
+    top: y,
+    behavior: "smooth"
+  });
+}
+
+
+
+
+function addToCalendar() {
+  const start = EVENT_DATE.toISOString().replace(/[-:]/g, '').split('.')[0];
+
+  const url = `https://www.google.com/calendar/render?action=TEMPLATE
+    &text=XV+años+Sofía+Montes
+    &dates=${start}/${start}
+    &details=Mis+XV+años
+    &location=Evento`
+    .replace(/\s+/g, '');
+
+  window.open(url, '_blank');
+}
+
+  function actualizarOpciones() {
+  const select = document.getElementById("guestCount");
+  const maxPases = parseInt(select.dataset.pases) || 1;
+
+  // Limpiar opciones excepto el placeholder
+  select.innerHTML = '<option value="">Selecciona una opción</option>';
+
+  for (let i = 0; i < maxPases; i++) {
+    let texto;
+    if (i === 0) {
+      texto = "Asistiré solo";
+    } else {
+      texto = `Me acompaña${i > 1 ? 'n' : ''} ${i} persona${i > 1 ? 's' : ''}`;
+    }
+    const option = document.createElement("option");
+    option.value = texto;
+    option.textContent = texto;
+    select.appendChild(option);
+  }
+}
+
+// Ejecutar al cargar la página
+actualizarOpciones();
+ 
+   function sendConfirmation(attending) {
+
+  const name = document.getElementById("guestName").value.trim();
+  const count = document.getElementById("guestCount").value;
+
+  if (!name) {
+    alert("Por favor escribe tu nombre ✨");
+    return;
+  }
+
+  let message = "";
+
+  if (attending) {
+
+    if (!count) {
+      alert("Selecciona cuántas personas asistirán ✨");
+      return;
+    }
+
+    message = `✨ Confirmación de asistencia ✨
+
+Con mucha alegría confirmo mi presencia en los XV años de Sofía Montes.
+
+Nombre: ${name}
+${count}
+
+Será un honor acompañarte en este día tan especial 💖`;
+
+  } else {
+
+    message = `✨ XV años Sofía Montes ✨
+
+Hola, mi nombre es ${name}.
+
+Con mucho cariño quiero decir que en esta ocasión no podré acompañarte,
+pero te deseo un día maravilloso y lleno de felicidad 💐`;
+
+  }
+
+  const phone = "525550591264";
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
+}
+
+
 </script>
 
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  const openBtn = document.getElementById("openBtn");
+  const overlay = document.getElementById("overlay");
+  const audio = document.getElementById("audio");
+  const nombre = document.getElementById("nombre");
+  const musicBtn = document.getElementById("musicBtn");
+
+// ===== ABRIR INVITACIÓN =====
+openBtn.addEventListener("click", () => {
+
+  overlay.style.opacity = "0";
+
+  setTimeout(() => {
+    overlay.style.display = "none";
+    document.body.classList.remove("locked");
+  }, 800);
+
+  // Mostrar botón música
+  musicBtn.classList.add("show");
+
+  // Reproducir música
+  audio.play().catch(() => {});
+
+  // Animar nombre
+  nombre.classList.add("show");
+
+});
+
+  /* ===== BOTÓN PAUSA / CONTINUAR ===== */
+  musicBtn.addEventListener("click", () => {
+
+    if (audio.paused) {
+      audio.play();
+      musicBtn.classList.remove("play");
+    } else {
+      audio.pause();
+      musicBtn.classList.add("play");
+    }
+
+  });
+
+});
+
+// Animación de secciones al hacer scroll
+const sections = document.querySelectorAll(".section");
+
+function revealSections() {
+  const trigger = window.innerHeight * 0.85;
+
+  sections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+
+    if (top < trigger) {
+      section.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealSections);
+revealSections();
+
+
+</script>
 </body>
 </html>
