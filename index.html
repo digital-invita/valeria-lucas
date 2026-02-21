@@ -1456,10 +1456,31 @@ body.locked {
    ITINERARIO · IZQUIERDA PREMIUM
 ================================ */
 
+/* CONTENEDOR TIMELINE */
 .timeline {
   position: relative;
   margin-top: 25px;
-  padding-left: 44px; /* espacio para línea */
+  padding-left: 60px; /* espacio real para línea + punto */
+}
+
+/* LÍNEA IZQUIERDA */
+.timeline::before {
+  content: "";
+  position: absolute;
+
+  left: 23px;   /* alineado con el centro del punto */
+  top: 0;
+  bottom: 0;
+
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(212,175,55,.9),
+    rgba(212,175,55,.5),
+    rgba(212,175,55,.2)
+  );
+
+  z-index: 0; /* importante */
 }
 
 /* Línea vertical elegante */
@@ -1501,20 +1522,18 @@ body.locked {
 .timeline-item::before {
   content: "";
   position: absolute;
-  left: 10px;     /* 👈 alineado con línea */
-  top: 28px;
-  width: 16px;
-  height: 16px;
+
+  left: 18px;  /* ligeramente antes del centro de línea */
+  top: 32px;
+
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
 
-  background: radial-gradient(
-    circle at 30% 30%,
-    #ffffff 0%,
-    #fff1a8 25%,
-    #f6d365 50%,
-    #d4af37 75%,
-    #b8902c 100%
-  );
+  background: #d4af37;
+
+  z-index: 2; /* encima de la línea */
+}
 
   box-shadow:
     0 0 0 3px rgba(255,255,255,.08),   /* aro sutil */
