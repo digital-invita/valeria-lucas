@@ -1459,28 +1459,31 @@ body.locked {
 .timeline {
   position: relative;
   margin-top: 25px;
-  padding-left: 44px; /* espacio para línea */
+  padding-left: 44px;
 }
 
-/* Línea vertical elegante */
-.timeline-item::before {
+/* LÍNEA VERTICAL DORADA */
+.timeline::before {
   content: "";
   position: absolute;
-  left: 18px;        /* misma posición que la línea */
-  top: 30px;
+  left: 18px;          /* alineado con puntos */
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
 
-  width: 10px;       /* más pequeño */
-  height: 10px;
-  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(212,175,55,.6),
+    rgba(255,241,168,.9),
+    rgba(212,175,55,.6),
+    transparent
+  );
 
-  background: #d4af37;
-
-  box-shadow:
-    0 0 0 3px rgba(212,175,55,.15),
-    0 0 8px rgba(212,175,55,.4);
-
-  animation: subtlePulse 4s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(212,175,55,.4);
 }
+
+
 
 /* Cada item */
 .timeline-item {
