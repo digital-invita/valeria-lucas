@@ -1453,35 +1453,37 @@ body.locked {
 }
 
 /* ================================
-   ITINERARIO · TIMELINE XV IZQUIERDA PREMIUM
+   ITINERARIO · IZQUIERDA PREMIUM
 ================================ */
 
 .timeline {
   position: relative;
   margin-top: 25px;
-  padding-left: 38px; /* espacio para línea */
+  padding-left: 44px; /* espacio para línea */
 }
 
 /* Línea vertical elegante */
 .timeline::before {
   content: "";
   position: absolute;
-  left: 12px;      /* 👈 lado izquierdo */
+  left: 18px;     /* 👈 línea fija izquierda */
   top: 0;
   bottom: 0;
   width: 2px;
   background: linear-gradient(
     to bottom,
-    rgba(212,175,55,.95),
-    rgba(212,175,55,.4),
+    rgba(255, 241, 168, 1),
+    rgba(212, 175, 55, .9),
+    rgba(212, 175, 55, .3),
     transparent
   );
+  box-shadow: 0 0 12px rgba(212,175,55,.35);
 }
 
-/* Item */
+/* Cada item */
 .timeline-item {
   position: relative;
-  padding: 20px 0 20px 12px;
+  padding: 22px 0;
   text-align: left;
   opacity: 0;
   transform: translateY(40px);
@@ -1493,51 +1495,58 @@ body.locked {
   transform: translateY(0);
 }
 
-/* Punto dorado premium */
+/* Punto premium tipo joya */
 .timeline-item::before {
   content: "";
   position: absolute;
-  left: 4px;        /* 👈 alineado con línea */
-  top: 26px;
-  width: 14px;
-  height: 14px;
+  left: 10px;     /* 👈 alineado con línea */
+  top: 28px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
 
   background: radial-gradient(
     circle at 30% 30%,
-    #fff,
-    #f6d365,
-    #d4af37
+    #ffffff 0%,
+    #fff1a8 25%,
+    #f6d365 50%,
+    #d4af37 75%,
+    #b8902c 100%
   );
 
   box-shadow:
-    0 0 8px rgba(212,175,55,.9),
-    0 0 18px rgba(212,175,55,.6);
+    0 0 0 3px rgba(255,255,255,.08),   /* aro sutil */
+    0 0 10px rgba(212,175,55,.7),
+    0 0 22px rgba(212,175,55,.4);
 
-  animation: elegantPulse 2.8s ease-in-out infinite;
+  animation: luxuryPulse 3.5s ease-in-out infinite;
 }
 
-/* Latido elegante */
-@keyframes elegantPulse {
+/* Latido fino (más elegante) */
+@keyframes luxuryPulse {
+
   0% {
     transform: scale(1);
     box-shadow:
-      0 0 8px rgba(212,175,55,.9),
-      0 0 18px rgba(212,175,55,.6);
+      0 0 0 3px rgba(255,255,255,.08),
+      0 0 10px rgba(212,175,55,.7),
+      0 0 22px rgba(212,175,55,.4);
   }
 
   50% {
-    transform: scale(1.25);
+    transform: scale(1.18);
     box-shadow:
-      0 0 14px rgba(212,175,55,1),
-      0 0 28px rgba(212,175,55,.8);
+      0 0 0 5px rgba(255,255,255,.12),
+      0 0 16px rgba(212,175,55,1),
+      0 0 32px rgba(212,175,55,.7);
   }
 
   100% {
     transform: scale(1);
     box-shadow:
-      0 0 8px rgba(212,175,55,.9),
-      0 0 18px rgba(212,175,55,.6);
+      0 0 0 3px rgba(255,255,255,.08),
+      0 0 10px rgba(212,175,55,.7),
+      0 0 22px rgba(212,175,55,.4);
   }
 }
 
@@ -1570,61 +1579,6 @@ body.locked {
 }
 
   
-/* item */
-.timeline-item {
-  position: relative;
-  padding: 20px 30px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all .9s ease;
-}
-
-.timeline-item.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* punto dorado */
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 22px;
-  width: 14px;
-  height: 14px;
-  background: #d4af37;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 0 0 rgba(212,175,55,.7);
-  animation: pulseDot 2s infinite;
-}
-
-
-/* LATIDO DORADO */
-@keyframes timelinePulse {
-  0% {
-    transform: scale(1);
-    box-shadow:
-      0 0 8px rgba(212,175,55,.9),
-      0 0 18px rgba(212,175,55,.6),
-      0 0 30px rgba(212,175,55,.35);
-  }
-
-  50% {
-    transform: scale(1.35);
-    box-shadow:
-      0 0 14px rgba(212,175,55,1),
-      0 0 28px rgba(212,175,55,.9),
-      0 0 50px rgba(212,175,55,.5);
-  }
-
-  100% {
-    transform: scale(1);
-    box-shadow:
-      0 0 8px rgba(212,175,55,.9),
-      0 0 18px rgba(212,175,55,.6),
-      0 0 30px rgba(212,175,55,.35);
-  }
-}
 
 /* hora */
 .timeline-time {
