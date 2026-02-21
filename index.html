@@ -1452,52 +1452,95 @@ body.locked {
   margin-left: 14px;
 }
 
-
 /* ================================
-   ITINERARIO · TIMELINE XV
+   ITINERARIO · TIMELINE XV IZQUIERDA PREMIUM
 ================================ */
 
 .timeline {
   position: relative;
-  margin-top: 20px;
-  padding-left: 26px;
+  margin-top: 25px;
+  padding-left: 38px; /* espacio para línea */
 }
 
-/* línea vertical */
+/* Línea vertical elegante */
 .timeline::before {
   content: "";
   position: absolute;
-  left: 50%;
+  left: 12px;      /* 👈 lado izquierdo */
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom,#d4af37,transparent);
-  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(212,175,55,.95),
+    rgba(212,175,55,.4),
+    transparent
+  );
 }
 
-.timeline-dot {
+/* Item */
+.timeline-item {
+  position: relative;
+  padding: 20px 0 20px 12px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all .9s ease;
+}
+
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Punto dorado premium */
+.timeline-item::before {
+  content: "";
   position: absolute;
-  left: 50%;
-  top: 22px;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
+  left: 4px;        /* 👈 alineado con línea */
+  top: 26px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
 
-  background: radial-gradient(circle at 30% 30%, #fff, #f6d365, #d4af37);
+  background: radial-gradient(
+    circle at 30% 30%,
+    #fff,
+    #f6d365,
+    #d4af37
+  );
 
   box-shadow:
-    0 0 8px rgba(255,215,160,.8),
+    0 0 8px rgba(212,175,55,.9),
     0 0 18px rgba(212,175,55,.6);
 
-  animation: dotPulse 2.8s ease-in-out infinite;
+  animation: elegantPulse 2.8s ease-in-out infinite;
 }
 
-@keyframes dotPulse {
-  0%   { transform: translateX(-50%) scale(1); opacity: 1; }
-  50%  { transform: translateX(-50%) scale(1.4); opacity: .7; }
-  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+/* Latido elegante */
+@keyframes elegantPulse {
+  0% {
+    transform: scale(1);
+    box-shadow:
+      0 0 8px rgba(212,175,55,.9),
+      0 0 18px rgba(212,175,55,.6);
+  }
+
+  50% {
+    transform: scale(1.25);
+    box-shadow:
+      0 0 14px rgba(212,175,55,1),
+      0 0 28px rgba(212,175,55,.8);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 8px rgba(212,175,55,.9),
+      0 0 18px rgba(212,175,55,.6);
+  }
 }
+
 
  .timeline-content {
   background: linear-gradient(
