@@ -2275,9 +2275,12 @@ function updateCountdown() {
 // Iniciar contador
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
 function scrollToCountdown() {
   const section = document.getElementById("countdown-section");
-  if (!section) return;
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
 }
 
   const y = section.offsetTop - (window.innerHeight / 2) + (section.offsetHeight / 2);
