@@ -2403,6 +2403,8 @@ items.forEach(el=>observer.observe(el));
 
 
 // OBSERVAR TIMELINE
+const timelineItems = document.querySelectorAll(".timeline-item");
+
 const timelineObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
 
@@ -2412,19 +2414,19 @@ const timelineObserver = new IntersectionObserver((entries) => {
 
       setTimeout(() => {
         entry.target.classList.add("show");
-      }, index * 250);
+      }, index * 350); // delay más elegante
 
       timelineObserver.unobserve(entry.target);
     }
 
   });
 }, {
-  threshold: 0.45,
-  rootMargin: "0px 0px -60px 0px"
+  threshold: 0.85,
+rootMargin: "0px 0px -150px 0px"
 });
 
 timelineItems.forEach(item => timelineObserver.observe(item));
-
+  
 // ===== ABRIR INVITACIÓN =====
 const openBtn = document.getElementById('openBtn');
 const overlay = document.getElementById('overlay');
