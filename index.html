@@ -2403,9 +2403,7 @@ items.forEach(el=>observer.observe(el));
 
 
 // OBSERVAR TIMELINE
-const timelineItems = document.querySelectorAll(".timeline-item");
-
-const observer = new IntersectionObserver((entries) => {
+const timelineObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
 
     if (entry.isIntersecting) {
@@ -2414,9 +2412,9 @@ const observer = new IntersectionObserver((entries) => {
 
       setTimeout(() => {
         entry.target.classList.add("show");
-      }, index * 250); // delay elegante
+      }, index * 250);
 
-      observer.unobserve(entry.target);
+      timelineObserver.unobserve(entry.target);
     }
 
   });
@@ -2425,7 +2423,7 @@ const observer = new IntersectionObserver((entries) => {
   rootMargin: "0px 0px -60px 0px"
 });
 
-timelineItems.forEach(item => observer.observe(item));
+timelineItems.forEach(item => timelineObserver.observe(item));
 
 // ===== ABRIR INVITACIÓN =====
 const openBtn = document.getElementById('openBtn');
