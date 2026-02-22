@@ -236,13 +236,18 @@ font-family: 'Playfair Display', serif;
     opacity: 0;
   }
 }
-
-/* RESPIRACIÓN ELEGANTE CONTINUA */
-.nombre {
+/* ACTIVAR ANIMACIÓN SOLO AL ABRIR */
+.nombre.animate {
   animation:
     nombreLuxuryReveal 2.6s cubic-bezier(.19,1,.22,1) forwards,
     nombreBreath 6s ease-in-out 3.2s infinite;
 }
+
+/* activar brillo metálico */
+.nombre.animate::after {
+  animation: nombreMetalShine 3.8s ease 2.2s forwards;
+}
+/* RESPIRACIÓN ELEGANTE CONTINUA */
 
 @keyframes nombreBreath {
   0%   { transform: translateY(0) scale(1); }
@@ -2333,6 +2338,24 @@ document.addEventListener("DOMContentLoaded", function() {
   const audio = document.getElementById("audio");
   const nombre = document.getElementById("nombre");
   const musicBtn = document.getElementById("musicBtn");
+
+openBtn.addEventListener("click", () => {
+
+  // Oculta overlay
+  const overlay = document.getElementById("overlay");
+  overlay.style.opacity = "0";
+
+  setTimeout(() => {
+    overlay.style.display = "none";
+    document.body.classList.remove("locked");
+  }, 800);
+
+  // 🔥 ACTIVA ANIMACIÓN DEL NOMBRE
+  const nombre = document.getElementById("nombre");
+  nombre.classList.add("animate");
+
+});
+
 
 // ===== ABRIR INVITACIÓN =====
 openBtn.addEventListener("click", () => {
