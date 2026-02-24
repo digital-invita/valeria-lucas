@@ -1632,28 +1632,19 @@ body.locked {
   background:#000;
 }
 
-/* contenido dentro del teléfono */
 .phone-mode body > *:not(.phone-preview){
   position:relative;
   z-index:1;
 }
 
-/* marco iPhone encima del contenido */
 .phone-frame{
-  overflow:hidden;
-  z-index:2;
-}
-
-/* fondo exterior */
-.phone-preview{
-  z-index:0;
+  overflow:hidden;   /* 🔥 clave */
 }
 
  /* ===== DARK OUTSIDE PHONE ===== */
 .phone-preview{
   background:#000;
-  z-index:0;
-}
+} 
   
 /* ===== Dynamic Island ===== */
 .phone-frame::before{
