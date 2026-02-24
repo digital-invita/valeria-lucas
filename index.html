@@ -1617,23 +1617,25 @@ body.locked {
   width:430px;
   aspect-ratio:9/19.5;
   border-radius:55px;
-  border:14px solid #0a0a0a;
-  background:#000;
+  pointer-events:none;
+
+  /* marco */
   box-shadow:
     0 60px 160px rgba(0,0,0,.9),
-    inset 0 0 0 2px #000;
+    inset 0 0 0 14px #0a0a0a,
+    inset 0 0 0 16px #000;
 }
 
 /* notch */
 .phone-frame::before{
   content:"";
   position:absolute;
-  top:8px;
+  top:10px;
   left:50%;
   transform:translateX(-50%);
-  width:180px;
-  height:34px;
-  background:#000;
+  width:160px;
+  height:32px;
+  background:#0a0a0a;
   border-radius:20px;
 }
 
