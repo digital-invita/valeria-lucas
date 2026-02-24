@@ -1600,10 +1600,15 @@ body{
   width:390px;
   height:844px;
   background:#fff;
-  overflow:auto;
+  overflow:hidden;   /* 🔥 clave */
+  position:relative; /* 🔥 clave */
   border-radius:40px;
   box-shadow:0 20px 60px rgba(0,0,0,0.6);
   border:8px solid #000;
+}
+
+.phone-screen > *{
+  height:100%;
 }
 
 @media (max-width: 768px){
