@@ -1627,6 +1627,25 @@ body.locked {
     inset 0 0 0 12px #000;
 }
 
+/* ===== CLIP SCREEN AREA ===== */
+.phone-mode body{
+  background:#000;
+}
+
+.phone-mode body > *:not(.phone-preview){
+  position:relative;
+  z-index:1;
+}
+
+.phone-frame{
+  overflow:hidden;   /* 🔥 clave */
+}
+
+ /* ===== DARK OUTSIDE PHONE ===== */
+.phone-preview{
+  background:#000;
+} 
+  
 /* ===== Dynamic Island ===== */
 .phone-frame::before{
   content:"";
@@ -1678,19 +1697,27 @@ video{
   padding-bottom:40px;
 }
   /* ===== FIX COUNTDOWN PC ===== */
+/* ===== COUNTDOWN FIT PHONE ===== */
 .phone-mode .countdown{
-  width:100%;
-  max-width:100%;
-  padding-left:20px;
-  padding-right:20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  padding:0 16px;
   box-sizing:border-box;
 }
 
-.phone-mode .countdown > *{
-  max-width:100%;
+.phone-mode .countdown .time{
+  flex:1 1 0;
+  min-width:0;
 }
-  .phone-mode section{
-  overflow:hidden;
+
+.phone-mode .countdown .num{
+  font-size:clamp(28px,6vw,40px);
+}
+
+.phone-mode .countdown .label{
+  font-size:clamp(10px,2.5vw,14px);
 }
 
 /* ===== desactivar preview en móvil ===== */
