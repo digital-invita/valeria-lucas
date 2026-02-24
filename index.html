@@ -1599,7 +1599,7 @@ body.locked {
     position:relative;
   }
 
-  /* ===== iPhone Preview Overlay ===== */
+/* ===== iPhone Preview Overlay ===== */
 .phone-preview{
   display:block;
   position:fixed;
@@ -1608,7 +1608,7 @@ body.locked {
   z-index:999999;
 }
 
-/* marco iPhone */
+/* ===== marco iPhone ===== */
 .phone-frame{
   position:absolute;
   left:50%;
@@ -1618,15 +1618,13 @@ body.locked {
   aspect-ratio:9/19.5;
   border-radius:55px;
   pointer-events:none;
-
-  /* marco */
   box-shadow:
     0 60px 160px rgba(0,0,0,.9),
     inset 0 0 0 14px #0a0a0a,
     inset 0 0 0 16px #000;
 }
 
-/* notch */
+/* ===== notch ===== */
 .phone-frame::before{
   content:"";
   position:absolute;
@@ -1639,22 +1637,52 @@ body.locked {
   border-radius:20px;
 }
 
-/* limitar contenido dentro del teléfono */
+/* ===== limitar contenido al ancho del teléfono ===== */
 body > *:not(.phone-preview){
+  width:100%;
   max-width:390px;
-  margin:0 auto;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-  body > *:not(.phone-preview){
-    max-width:390px;
-    margin:0 auto;
+/* ===== evitar desbordes horizontales ===== */
+section,
+.hero,
+.countdown,
+.container{
+  width:100%;
+  max-width:390px;
+  box-sizing:border-box;
+}
+
+/* ===== medios responsivos ===== */
+img,
+video{
+  max-width:100%;
+  height:auto;
+}
+
+/* ===== HERO ajustado al alto iPhone SOLO en modo phone ===== */
+.phone-mode .hero{
+  min-height:100dvh;
+}
+
+/* ===== desactivar preview en móvil ===== */
+@media (max-width:768px){
+  .phone-preview{
+    display:none;
   }
 
+  body > *:not(.phone-preview){
+    max-width:none;
+    margin:0;
+  }
 }
+  
 </style>
 </head>
 
-<body class="locked">
+<body class="locked phone-mode">
 
 <div class="phone-preview">
   <div class="phone-frame"></div>
