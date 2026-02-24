@@ -1590,8 +1590,13 @@ body.locked {
 @media (min-width:1024px){
 
   body{
-    display:flex;
-    justify-content:center;
+    overflow-x:hidden;
+  }
+
+  .phone-center{
+    max-width:390px;
+    margin:0 auto;
+    position:relative;
   }
 
   .phone-preview{
@@ -1626,9 +1631,12 @@ body.locked {
 </head>
 
 <body class="locked">
+
 <div class="phone-preview">
   <div class="phone-frame"></div>
 </div>
+
+<div class="phone-center">
 
 <canvas id="particles"></canvas>
 
