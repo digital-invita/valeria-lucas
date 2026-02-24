@@ -1627,35 +1627,43 @@ body.locked {
     inset 0 0 0 12px #000;
 }
 
-/* ===== CLIP SCREEN AREA ===== */
-.phone-mode body{
+/* ======================================
+   📱 iPHONE PREVIEW — FIX FINAL
+====================================== */
+
+/* fondo exterior SOLO en modo phone */
+.phone-mode{
   background:#000;
 }
 
-/* contenido dentro del teléfono */
-.phone-mode body > *:not(.phone-preview){
-  position:relative;
-  z-index:1;
+/* capa preview */
+.phone-preview{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+  background:#000;
+  z-index:9999;
 }
 
-/* marco iPhone encima del contenido */
+/* marco iPhone */
 .phone-frame{
+  width:360px;
+  height:780px;
+  border-radius:48px;
+  position:relative;
   overflow:hidden;
-  z-index:2;
+  pointer-events:none;
+
+  box-shadow:
+    0 60px 160px rgba(0,0,0,.9),
+    inset 0 0 0 12px #0a0a0a,
+    inset 0 0 0 14px #000;
 }
 
-/* fondo exterior */
-.phone-preview{
-  z-index:0;
-}
-
- /* ===== DARK OUTSIDE PHONE ===== */
-.phone-preview{
-  background:#000;
-  z-index:0;
-}
-  
-/* ===== Dynamic Island ===== */
+/* isla */
 .phone-frame::before{
   content:"";
   position:absolute;
@@ -1669,44 +1677,42 @@ body.locked {
   box-shadow:
     0 2px 6px rgba(0,0,0,.6),
     inset 0 0 4px rgba(255,255,255,.08);
-}
-/* ===== limitar contenido al ancho del teléfono ===== */
-body > *:not(.phone-preview){
-  width:100%;
-  max-width:390px;
-  margin-left:auto;
-  margin-right:auto;
+  z-index:3;
 }
 
-/* ===== evitar desbordes horizontales ===== */
-section,
-.hero,
-.countdown,
-.container{
-  width:100%;
-  max-width:390px;
+/* pantalla interna */
+.phone-screen{
+  position:absolute;
+  inset:0;
+  border-radius:36px;
+  overflow:hidden;
+  z-index:1;
+}
+
+/* contenedor del sitio dentro del teléfono */
+.phone-mode .site-wrap{
+  width:360px;
+  height:780px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* limitar todo el sitio al ancho del teléfono */
+.phone-mode .site-wrap > *{
+  max-width:100%;
   box-sizing:border-box;
 }
 
-/* ===== medios responsivos ===== */
-img,
-video{
-  max-width:100%;
-  height:auto;
-}
-
-/* ===== HERO ajustado al alto iPhone SOLO en modo phone ===== */
+/* HERO ajustado al alto del iPhone */
 .phone-mode .hero{
-  min-height:100dvh;
-}
-  /* ===== iPhone Safe Area ===== */
-.phone-mode .hero{
-  min-height:100dvh;
-  padding-top:60px;   /* espacio isla */
+  min-height:780px;
+  height:780px;
+  padding-top:60px;
   padding-bottom:40px;
 }
-  /* ===== FIX COUNTDOWN PC ===== */
-/* ===== COUNTDOWN FIT PHONE ===== */
+
+/* COUNTDOWN dentro del teléfono */
 .phone-mode .countdown{
   display:flex;
   justify-content:center;
@@ -1729,15 +1735,34 @@ video{
   font-size:clamp(10px,2.5vw,14px);
 }
 
-/* ===== desactivar preview en móvil ===== */
+/* medios */
+.phone-mode img,
+.phone-mode video{
+  max-width:100%;
+  height:auto;
+}
+
+/* desactivar preview en móvil real */
 @media (max-width:768px){
   .phone-preview{
     display:none;
   }
 
-  body > *:not(.phone-preview){
-    max-width:none;
-    margin:0;
+  .phone-mode{
+    background:none;
+  }
+
+  .phone-mode .site-wrap{
+    width:auto;
+    height:auto;
+    overflow:visible;
+  }
+
+  .phone-mode .hero{
+    min-height:100dvh;
+    height:auto;
+    padding-top:0;
+    padding-bottom:0;
   }
 }
   
