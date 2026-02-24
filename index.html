@@ -1582,39 +1582,32 @@ body.locked {
   margin-top: 2px;
 }
 
-  /* ===== MODO TELEFONO EN PC ===== */
-
-body{
-  margin:0;
-  background:#111;
-}
-
-.phone-frame{
+/* ===== PHONE MODE DESKTOP ===== */
+.phone-stage{
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
+  background:#111;
 }
 
 .phone-screen{
   width:390px;
   height:844px;
-  background:#fff;
-  overflow:hidden;   /* 🔥 clave */
-  position:relative; /* 🔥 clave */
+  background:#000;
+  overflow:hidden;
   border-radius:40px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.6);
-  border:8px solid #000;
+  border:10px solid #000;
+  box-shadow:0 40px 120px rgba(0,0,0,.8);
+
+  transform:translateZ(0); /* 🔥 CLAVE */
 }
 
-.phone-screen > *{
-  height:100%;
-}
-
-@media (max-width: 768px){
-
-  .phone-frame{
+/* en móvil se desactiva */
+@media (max-width:768px){
+  .phone-stage{
     display:block;
+    background:none;
   }
 
   .phone-screen{
@@ -1624,15 +1617,14 @@ body{
     border:none;
     box-shadow:none;
   }
-
 }
   
 </style>
 </head>
 
 <body class="locked">
-  <div class="phone-frame">
-<div class="phone-screen">
+  <div class="phone-stage">
+  <div class="phone-screen">
 
 <canvas id="particles"></canvas>
 
