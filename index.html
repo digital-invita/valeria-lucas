@@ -1595,7 +1595,7 @@ body.locked {
   width:390px;
   height:844px;
   background:#000;
-  overflow:hidden;
+  overflow:auto;
   border-radius:40px;
   border:10px solid #000;
   box-shadow:0 40px 120px rgba(0,0,0,.8);
@@ -1624,16 +1624,16 @@ body.locked {
   position: relative;
 }
 
-.phone-screen #overlay {
-  position: absolute;
+.phone-screen #overlay{
+  z-index:9999;
 }
 
-.phone-screen #particles {
-  position: absolute;
+.phone-screen #particles{
+  z-index:1;
 }
 
-.phone-screen #lightbox {
-  position: absolute;
+.phone-screen #lightbox{
+  z-index:9998;
 }
 
 .phone-screen #musicBtn,
@@ -1645,7 +1645,7 @@ body.locked {
 </head>
 
 <body class="locked">
-  <div class="phone-stage">
+ <div class="phone-frame">
   <div class="phone-screen">
 
 <canvas id="particles"></canvas>
