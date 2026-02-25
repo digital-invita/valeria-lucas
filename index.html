@@ -2522,7 +2522,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const nombre = document.getElementById("nombre");
   const musicBtn = document.getElementById("musicBtn");
 
-openBtn.addEventListener("click", () => {
 
   // Oculta overlay
   const overlay = document.getElementById("overlay");
@@ -2633,39 +2632,7 @@ rootMargin: "0px 0px -150px 0px"
 
 timelineItems.forEach(item => timelineObserver.observe(item));
   
-// ===== ABRIR INVITACIÓN =====
-const openBtn = document.getElementById('openBtn');
-const overlay = document.getElementById('overlay');
-const audio = document.getElementById('audio');
-const musicBtn = document.getElementById('musicBtn');
 
-openBtn.addEventListener('click', () => {
-
-  // Quitar overlay
-  overlay.style.opacity = "0";
-
-  setTimeout(() => {
-    overlay.style.display = "none";
-    document.body.classList.remove('locked');
-  }, 800);
-
-  // Activar música
-  audio.play().catch(() => {});
-  musicBtn.classList.add('show');
-
-  // Mostrar botón música en modo pausa
-  musicBtn.classList.remove('play');
-});
-
-musicBtn.addEventListener('click', () => {
-  if (audio.paused) {
-    audio.play();
-    musicBtn.classList.remove('play');
-  } else {
-    audio.pause();
-    musicBtn.classList.add('play');
-  }
-});
 
 </script>
 </div>
