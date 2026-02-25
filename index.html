@@ -1980,7 +1980,8 @@ video{
       Agregar al calendario
     </a>
 
-    <a class="btn-util" href="#countdown-section">
+    <a class="btn-util" href="#" id="verCuenta">
+
       Ver cuenta regresiva
     </a>
   </div>
@@ -2508,6 +2509,27 @@ pero te deseo un día maravilloso y lleno de felicidad 💐`;
 
   window.open(url, "_blank");
 }
+
+   // ===== CENTRAR CUENTA REGRESIVA =====
+const verCuenta = document.getElementById("verCuenta");
+const countdownSection = document.getElementById("countdown-section");
+
+verCuenta.addEventListener("click", function(e) {
+
+  e.preventDefault();
+
+  const sectionTop = countdownSection.offsetTop;
+  const sectionHeight = countdownSection.offsetHeight;
+  const windowHeight = window.innerHeight;
+
+  const scrollPosition = sectionTop - (windowHeight / 2) + (sectionHeight / 2);
+
+  window.scrollTo({
+    top: scrollPosition,
+    behavior: "smooth"
+  });
+
+});
 
 
 </script>
